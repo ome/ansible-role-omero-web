@@ -1,0 +1,77 @@
+---
+# install OMERO.web
+
+- name: omero web | is web symlink present
+  become: yes
+  stat:
+    path: "{{ omero_web_basedir }}/{{ omero_web_symlink }}"
+  register: omero_web_symlink_st
+
+# This should be safe to always run including in check-mode
+- name: omero web | get web version
+  become: yes
+  become_user: "{{ omero_web_system_user }}"
+  command: "{{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero version"
+  register: omero_web_version
+  changed_when: False
+  always_run: yes
+  # Set a custom error message
+  ignore_errors: yes
+
+- name: omero web | check omero version could be obtained
+  assert:
+    msg: "OMERO.web found but unable to get version, you may have a corrupt installation"
+    that: "not (omero_web_symlink_st.stat.exists and omero_web_version is undefined)"
+
+- name: omero web | checkupgrade
+  set_fact:
+    omero_web_update_needed: >
+      {{ (not omero_web_symlink_st.stat.exists) or
+         (omero_web_version is not defined) or
+         (omero_web_version.stdout | default('') |
+           regex_replace('^([^-]+).*', '\\1') != omero_web_release) |
+         bool
+      }}
+
+- debug:
+    msg: "OMERO.web upgrade needed?: {{ omero_web_update_needed }}"
+
+- name: omero web | stop omero web
+  become: yes
+  service:
+    name: omero-web
+    state: stopped
+  when: >
+    (omero_web_systemd_setup and
+     omero_web_update_needed and
+     omero_web_upgrade)
+  # Might not be installed
+  ignore_errors: yes
+
+- name: omero web | configuration file omero-web.config
+  become: yes
+  template:
+    dest: "{{ omero_web_basedir }}/config/omero-web.config"
+    force: yes
+    src: "{{ omero_web_prestart_file }}"
+  notify:
+  - omero-web rewrite omero-web configuration
+  - omero-web restart omero-web
+
+- name: omero web | install omero web
+  become: yes
+  become_user: "{{ omero_web_system_user }}"
+  command: >
+    {{ omero_web_omego }}
+    download
+    {{ omero_web_omego_options }}
+    --sym {{ omero_web_symlink }}
+    python
+  args:
+    chdir: "{{ omero_web_basedir }}"
+  when: >
+    omero_web_update_needed and
+    (not omero_web_symlink_st.stat.exists or omero_web_upgrade)
+  notify:
+  - omero-web rewrite omero-web configuration
+  - omero-web restart omero-web

@@ -1,0 +1,18 @@
+---
+# handlers for omero-web
+# We need to redefine some handlers here due to ordering issues:
+# http://stackoverflow.com/a/35130254
+
+- name: omero-web rewrite omero-web configuration
+  become: yes
+  become_user: "{{ omero_web_system_user }}"
+  command: >
+    {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero
+    load
+    {{ omero_web_basedir }}/config/omero-web.config
+
+- name: omero-web restart omero-web
+  become: yes
+  service:
+    name: omero-web
+    state: restarted

@@ -1,0 +1,42 @@
+---
+# defaults for omero-web
+
+# If True and server is already installed then upgrade to the version in
+# omero_server_release, otherwise don't upgrade an existing server.
+omero_web_upgrade: False
+
+# OMERO.web system user
+omero_web_system_user: omeroweb
+
+omero_web_basedir: "{{ omero_common_basedir }}/web"
+omero_web_symlink: OMERO.web
+# WARNING: This will currently always attempt to update the server since the registry check is broken
+omero_web_release: latest
+
+# Path of omego
+omero_web_omego: "{{ omero_common_basedir }}/omego/bin/omego"
+
+# Additional omego aguments passed to upgrade or install
+omero_web_omego_additional_args: ""
+
+# Configuration file passed to `omero load ...`
+omero_web_prestart_file: omero-web-config.j2
+
+# Default omero.web.server_list, ignored if omero_web_prestart_file is set
+omero_web_default_server_list:
+- [localhost, 4064, omero]
+
+# Setup systemd services
+omero_web_systemd_setup: True
+
+
+######################################################################
+# Expert users only!
+######################################################################
+
+omero_web_omego_options: >
+  --release {{ omero_web_release }}
+  --sym {{ omero_web_symlink }}
+  --ice {{ ice_version }}
+  -qq
+  {{ omero_web_omego_additional_args }}
