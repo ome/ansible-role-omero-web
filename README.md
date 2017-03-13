@@ -15,7 +15,7 @@ All variables are optional, see `defaults/main.yml` for the full list
   This may be ignored if `omero_web_prestart_file` is changed.
 - `omero_web_prestart_file`: The Jinja2 template used to generate the OMERO.web configuration file, default `templates/omero-web-config.j2`.
   If you require any non-default configuration settings define your own template, and either copy or include the default template.
-
+- `omero_web_ice_version`: The ice version.
 
 Warning
 -------
@@ -39,7 +39,6 @@ Configure OMERO.web with a single backend server, `omero.example.org:4064`:
     - hosts: localhost
       roles:
         - role: ansible-role-omero-web
-          ice_version: "3.6"
           omero_web_default_server_list:
           - [omero.example.org, 4064, omero-example]
 
@@ -59,7 +58,6 @@ Playbook:
     - hosts: localhost
       roles:
         - role: ansible-role-omero-web
-          ice_version: "3.6"
           omero_web_prestart_file: custom-web-config.j2
 
 

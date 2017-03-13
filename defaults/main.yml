@@ -1,6 +1,9 @@
 ---
 # defaults for omero-web
 
+# Ice version
+omero_web_ice_version: "3.6"
+
 # If True and server is already installed then upgrade to the version in
 # omero_server_release, otherwise don't upgrade an existing server.
 omero_web_upgrade: False
@@ -37,6 +40,6 @@ omero_web_systemd_setup: True
 omero_web_omego_options: >
   --release {{ omero_web_release }}
   --sym {{ omero_web_symlink }}
-  --ice {{ ice_version }}
+  --ice {{ omero_web_ice_version }}
   -qq
   {{ omero_web_omego_additional_args }}

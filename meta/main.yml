@@ -18,5 +18,6 @@ dependencies:
 - role: openmicroscopy.basedeps
 - role: openmicroscopy.omero-python-deps
 - role: openmicroscopy.ice
+  ice_version: "{{ omero_web_ice_version }}"
 - role: openmicroscopy.nginx
 - role: openmicroscopy.omero-web-runtime

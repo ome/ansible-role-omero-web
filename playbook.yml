@@ -3,6 +3,5 @@
 - hosts: all
   roles:
     - role: ansible-role-omero-web
-      ice_version: "3.6"
       omero_web_default_server_list:
       - [localhost, 4064, molecule]
