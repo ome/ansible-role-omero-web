@@ -3,9 +3,11 @@
 
 - include: web-user.yml
 
+- include: web-dependencies.yml
+
 - include: web-install.yml
 
-- include: web-setup.yml
+- include: web-nginx.yml
 
 - include: web-systemd.yml
   when: omero_web_systemd_setup

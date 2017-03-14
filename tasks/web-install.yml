@@ -11,7 +11,10 @@
 - name: omero web | get web version
   become: yes
   become_user: "{{ omero_web_system_user }}"
-  command: "{{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero version"
+  command: >
+    {{ omero_web_basedir }}/venv/bin/python
+    {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero
+    version
   register: omero_web_version
   changed_when: False
   always_run: yes

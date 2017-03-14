@@ -29,7 +29,9 @@
   become: yes
   shell: >
     su {{ omero_web_system_user }} -lc
-    "{{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web config nginx"
+    "{{ omero_web_basedir }}/venv/bin/python
+    {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web
+    config nginx"
     > /etc/nginx/conf.d/omero-web.conf
   when: omero_web_nginx_update_needed
   notify: restart nginx

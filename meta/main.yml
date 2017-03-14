@@ -16,9 +16,8 @@ dependencies:
 - name: openmicroscopy.omego
   src: openmicroscopy.omego
 - role: openmicroscopy.basedeps
-- role: openmicroscopy.omero-python-deps
-# openmicroscopy.omero-web-runtime brings in openmicroscopy.ice, so
-# configure the ice version here
-- role: openmicroscopy.omero-web-runtime
+- role: openmicroscopy.ice
   ice_version: "{{ omero_web_ice_version }}"
 - role: openmicroscopy.nginx
+- role: openmicroscopy.omero-python-deps
+- role: openmicroscopy.selinux-utils
