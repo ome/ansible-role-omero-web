@@ -17,9 +17,15 @@ def test_services_running_and_enabled(Service, name):
 def test_omero_web_config(Command, Sudo):
     with Sudo('omeroweb'):
         cfg = Command.check_output("%s config get" % OMERO)
-    assert cfg == 'omero.web.server_list=[["localhost", 4064, "molecule"]]'
+    assert cfg == (
+        'omero.web.server_list=[["localhost", 12345, "molecule-test"]]')
 
 
 def test_nginx_gateway(Command):
     out = Command.check_output('curl -L localhost')
     assert 'OMERO.web - Login' in out
+
+
+def test_omero_web_config_applied(Command, Sudo):
+    out = Command.check_output('curl -L localhost')
+    assert 'molecule-test:12345' in out

@@ -3,5 +3,6 @@
 - hosts: all
   roles:
     - role: ansible-role-omero-web
-      omero_web_default_server_list:
-      - [localhost, 4064, molecule]
+      omero_web_config_set:
+        omero.web.server_list:
+        - [localhost, 12345, molecule-test]

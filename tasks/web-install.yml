@@ -51,12 +51,23 @@
   # Might not be installed
   ignore_errors: yes
 
-- name: omero web | configuration file omero-web.config
+- name: omero web | configuration script
   become: yes
   template:
-    dest: "{{ omero_web_basedir }}/config/omero-web.config"
+    dest: "{{ omero_web_basedir }}/config/omero-web-config-update.sh"
     force: yes
-    src: "{{ omero_web_prestart_file }}"
+    src: omero-web-config-update-sh.j2
+    mode: 0555
+  notify:
+  - omero-web rewrite omero-web configuration
+  - omero-web restart omero-web
+
+- name: omero web | configuration 00-omero-web.omero
+  become: yes
+  template:
+    dest: "{{ omero_web_basedir }}/config/00-omero-web.omero"
+    force: yes
+    src: 00-omero-web-omero.j2
   notify:
   - omero-web rewrite omero-web configuration
   - omero-web restart omero-web

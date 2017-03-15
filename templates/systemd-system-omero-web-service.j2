@@ -11,6 +11,7 @@ PIDFile={{ omero_web_basedir }}/{{ omero_web_symlink }}/var/django.pid
 Restart=no
 RestartSec=10
 Environment="PATH={{ omero_web_basedir }}/venv/bin:/bin:/usr/bin"
+ExecStartPre={{ omero_web_basedir }}/config/omero-web-config-update.sh
 ExecStart={{ omero_web_basedir }}/venv/bin/python {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web start
 ExecStop={{ omero_web_basedir }}/venv/bin/python {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web stop
 

@@ -1,4 +1,0 @@
-# {{ ansible_managed }}
-
-config drop default
-config set omero.web.server_list {{ omero_web_default_server_list | to_json | quote }}

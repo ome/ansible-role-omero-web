@@ -1,0 +1,10 @@
+# {{ ansible_managed }}
+
+{% if omero_web_always_reset_config %}
+config drop default
+{% endif %}
+
+# Additional custom options
+{% for key in omero_web_config_set %}
+config set {{ key | quote }} {{ omero_web_config_set[key] | to_json | quote }}
+{% endfor %}
