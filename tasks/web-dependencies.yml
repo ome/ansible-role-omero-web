@@ -7,7 +7,7 @@
     name: python-redis
     state: present
 
-- name: omego | setup virtualenv
+- name: omero web | setup virtualenv
   become: yes
   pip:
     name:
