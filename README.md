@@ -17,6 +17,18 @@ All variables are optional, see `defaults/main.yml` for the full list
   `value` can be a YAML object (e.g. string, list, dictionary) that will be automatically converted to quoted JSON when passed to OMERO.web.
 - `omero_web_ice_version`: The ice version.
 - `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
+- `omero_web_setup_nginx`: Install and configure Nginx, default `True`.
+
+
+Features in development (may break across minor releases)
+---------------------------------------------------------
+
+Variables :
+- `omero_web_systemd_start`: Automatically enable and start/restart systemd omero-web service, default `True`.
+  This is intended for use in server images where installation may be separate from configuration and execution.
+
+It should be safe to use this role to deploy OMERO.web inside a standard `centos:7` Docker container without systemd (`omero_web_systemd_setup: False`).
+
 
 
 Configuring OMERO.web

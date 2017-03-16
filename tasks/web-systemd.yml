@@ -9,7 +9,7 @@
     src: systemd-system-omero-web-service.j2
   notify:
   - reload systemd
-  - restart omero-web
+  - omero-web restart omero-web
 
 # Flush handlers to ensure systemd is reloaded
 - name: omero web | flush systemd handlers
@@ -21,3 +21,4 @@
     enabled: yes
     name: omero-web.service
     state: started
+  when: omero_web_systemd_start

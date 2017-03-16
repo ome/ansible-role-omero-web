@@ -25,6 +25,19 @@ docker:
     image: centos/systemd
     image_version: latest
     privileged: True
+  - name: omero-web-inactive
+    image: centos
+    image_version: 7
+
+ansible:
+  host_vars:
+    omero-web-inactive:
+      # This tests a hypothetical instance where systemd is inactive but might
+      # be activated in future
+      # It also tests this role can be used to install omero.web on a system
+      # that will never have systemd, e.g. a simple docker container
+      omero_web_systemd_start: False
+      omero_web_setup_nginx: False
 
 verifier:
   name: testinfra

@@ -31,6 +31,12 @@ omero_web_always_reset_config: True
 # Setup systemd services
 omero_web_systemd_setup: True
 
+# Install and configure Nginx
+omero_web_setup_nginx: True
+
+# DEVELOPMENT: Automatically start systemd omero-web
+omero_web_systemd_start: True
+
 
 ######################################################################
 # Expert users only!

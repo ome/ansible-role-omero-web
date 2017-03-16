@@ -19,5 +19,6 @@ dependencies:
 - role: openmicroscopy.ice
   ice_version: "{{ omero_web_ice_version }}"
 - role: openmicroscopy.nginx
+  when: omero_web_setup_nginx
 - role: openmicroscopy.omero-python-deps
 - role: openmicroscopy.selinux-utils
