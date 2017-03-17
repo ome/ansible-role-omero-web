@@ -6,5 +6,9 @@ config drop default
 
 # Additional custom options
 {% for key in omero_web_config_set %}
-config set {{ key | quote }} -- {{ omero_web_config_set[key] | to_json }}
+config set -- {{ key | quote }} {{
+  ((omero_web_config_set[key] | string) == omero_web_config_set[key]) |
+  ternary(omero_web_config_set[key], omero_web_config_set[key] | to_json) |
+  quote
+}}
 {% endfor %}

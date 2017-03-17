@@ -14,7 +14,7 @@ All variables are optional, see `defaults/main.yml` for the full list
 - `omero_web_upgrade`: Upgrade OMERO.web if the current version does not match `omero_web_release`
 - `omero_web_always_reset_config`: Clear the existing configuration before regenerating, default `True`
 - `omero_web_config_set`: A dictionary of `config-key: value` which will be used for the initial OMERO.web configuration, default empty.
-  `value` can be a YAML object (e.g. string, list, dictionary) that will be automatically converted to quoted JSON when passed to OMERO.web.
+  `value` can be a string, or an object (list, dictionary) that will be automatically converted to quoted JSON.
 - `omero_web_ice_version`: The ice version.
 - `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
 - `omero_web_setup_nginx`: Install and configure Nginx, default `True`.
