@@ -16,6 +16,7 @@
     {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero
     version
   register: omero_web_version
+  when: omero_web_symlink_st.stat.exists
   changed_when: False
   always_run: yes
   # Set a custom error message
