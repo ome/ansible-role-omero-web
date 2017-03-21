@@ -1,46 +1,50 @@
 ---
 # defaults for omero-web
 
-# Ice version
-omero_web_ice_version: "3.6"
+# WARNING: This will currently always attempt to update the server since the registry check is broken
+omero_web_release: latest
 
 # If True and server is already installed then upgrade to the version in
 # omero_server_release, otherwise don't upgrade an existing server.
 omero_web_upgrade: False
 
+# Ice version
+omero_web_ice_version: "3.6"
+
 # OMERO.web system user
 omero_web_system_user: omeroweb
 
+# Setup systemd services
+omero_web_systemd_setup: True
+
+# Configuration key-values to be set
+omero_web_config_set: {}
+
+# Install and configure Nginx
+omero_web_setup_nginx: True
+
+
+######################################################################
+# Expert users only!
+######################################################################
+
+# DEVELOPMENT: If True clear the existing configuration before regenerating
+omero_web_always_reset_config: True
+
+# DEVELOPMENT: Automatically start systemd omero-web
+omero_web_systemd_start: True
+
+# Base directory for the web installation
 omero_web_basedir: "{{ omero_common_basedir }}/web"
+
+# Symlink to the currently installed OMERO.web
 omero_web_symlink: OMERO.web
-# WARNING: This will currently always attempt to update the server since the registry check is broken
-omero_web_release: latest
 
 # Path of omego
 omero_web_omego: "{{ omero_common_basedir }}/omego/bin/omego"
 
 # Additional omego aguments passed to upgrade or install
 omero_web_omego_additional_args: ""
-
-# Configuration key-values to be set
-omero_web_config_set: {}
-
-# If True clear the existing configuration before regenerating
-omero_web_always_reset_config: True
-
-# Setup systemd services
-omero_web_systemd_setup: True
-
-# Install and configure Nginx
-omero_web_setup_nginx: True
-
-# DEVELOPMENT: Automatically start systemd omero-web
-omero_web_systemd_start: True
-
-
-######################################################################
-# Expert users only!
-######################################################################
 
 omero_web_omego_options: >
   --release {{ omero_web_release }}

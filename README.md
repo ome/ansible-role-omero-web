@@ -10,22 +10,29 @@ Role Variables
 
 All variables are optional, see `defaults/main.yml` for the full list
 
+OMERO.web version and installation.
 - `omero_web_release`: The version of OMERO.web to install, default `latest`
-- `omero_web_upgrade`: Upgrade OMERO.web if the current version does not match `omero_web_release`
-- `omero_web_always_reset_config`: Clear the existing configuration before regenerating, default `True`
+- `omero_web_upgrade`: Upgrade OMERO.web if the current version does not match `omero_web_release`.
+  This is a workaround for the inability to check for the latest version when `omero_web_release: latest`.
+  It may be removed in future.
+- `omero_web_ice_version`: The ice version.
+- `omero_web_system_user`: OMERO.web system user, default `omeroweb`.
+- `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
+
+OMERO.web configuration.
 - `omero_web_config_set`: A dictionary of `config-key: value` which will be used for the initial OMERO.web configuration, default empty.
   `value` can be a string, or an object (list, dictionary) that will be automatically converted to quoted JSON.
-- `omero_web_ice_version`: The ice version.
-- `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
+  Note configuration can also be done pre/post installation using the `web/config` conf.d style directory.
 - `omero_web_setup_nginx`: Install and configure Nginx, default `True`.
 
 
-Features in development (may break across minor releases)
----------------------------------------------------------
+Unstable features
+-----------------
 
 Variables :
 - `omero_web_systemd_start`: Automatically enable and start/restart systemd omero-web service, default `True`.
   This is intended for use in server images where installation may be separate from configuration and execution.
+- `omero_web_always_reset_config`: Clear the existing configuration before regenerating, default `True`.
 
 It should be safe to use this role to deploy OMERO.web inside a standard `centos:7` Docker container without systemd (`omero_web_systemd_setup: False`).
 
