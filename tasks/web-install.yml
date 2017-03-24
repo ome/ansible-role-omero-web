@@ -18,7 +18,7 @@
   register: omero_web_version
   when: omero_web_symlink_st.stat.exists
   changed_when: False
-  always_run: yes
+  check_mode: no
   # Set a custom error message
   ignore_errors: yes
 
