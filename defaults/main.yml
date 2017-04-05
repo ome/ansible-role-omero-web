@@ -12,7 +12,7 @@ omero_web_upgrade: False
 omero_web_ice_version: "3.6"
 
 # OMERO.web system user
-omero_web_system_user: omeroweb
+omero_web_system_user: omero-web
 
 # Setup systemd services
 omero_web_systemd_setup: True
