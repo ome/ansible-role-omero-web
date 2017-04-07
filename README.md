@@ -16,7 +16,7 @@ OMERO.web version and installation.
   This is a workaround for the inability to check for the latest version when `omero_web_release: latest`.
   It may be removed in future.
 - `omero_web_ice_version`: The ice version.
-- `omero_web_system_user`: OMERO.web system user, default `omeroweb`.
+- `omero_web_system_user`: OMERO.web system user, default `omero-web`.
 - `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
 
 OMERO.web configuration.
