@@ -90,3 +90,14 @@
   notify:
   - omero-web rewrite omero-web configuration
   - omero-web restart omero-web
+
+- name: omero web | setup virtualenv
+  become: yes
+  pip:
+    requirements: "{{ omero_web_basedir }}/OMERO.web/share/web/requirements-py27.txt"
+    state: present
+    virtualenv: "{{ omero_web_basedir }}/venv"
+    virtualenv_site_packages: yes
+  notify:
+  - omero-web rewrite omero-web configuration
+  - omero-web restart omero-web

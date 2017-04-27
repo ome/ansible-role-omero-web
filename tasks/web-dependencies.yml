@@ -1,25 +1,14 @@
 ---
-# Dependencies for OMERO.web
+# System dependencies for OMERO.web
+# Additional requirements will be installed after OMERO.web has been
+# downloaded since it comes with its own requirements.txt
+# See web-install.yml
 
 - name: omero web | install python redis package
   become: yes
   yum:
     name: python-redis
     state: present
-
-- name: omero web | setup virtualenv
-  become: yes
-  pip:
-    name:
-    - "django>=1.8,<1.9"
-    - "django-pipeline>=1.3,<1.4"
-    - "django-redis>=4.4"
-    - "gunicorn>=19.3"
-    - "omero-marshal>=0.5.1,<0.6"
-    state: present
-    virtualenv: "{{ omero_web_basedir }}/venv"
-    virtualenv_site_packages: yes
-
 
 # selinux
 
