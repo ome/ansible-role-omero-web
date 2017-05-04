@@ -4,6 +4,8 @@ OMERO Web
 Installs and configures OMERO.web and Nginx.
 Uses a conf.d style configuration directory for managing the OMERO.web configuration.
 
+This role supports installation of OMERO.web 5.3+, and upgrades of existing OMERO.web 5.2 installations to 5.3+.
+
 
 Role Variables
 --------------
