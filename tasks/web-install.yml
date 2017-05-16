@@ -54,6 +54,7 @@
 
 - name: omero web | configuration script
   become: yes
+  no_log: true
   template:
     dest: "{{ omero_web_basedir }}/config/omero-web-config-update.sh"
     force: yes
@@ -65,6 +66,7 @@
 
 - name: omero web | configuration 00-omero-web.omero
   become: yes
+  no_log: true
   template:
     dest: "{{ omero_web_basedir }}/config/00-omero-web.omero"
     force: yes
