@@ -27,28 +27,54 @@
     msg: "OMERO.web found but unable to get version, you may have a corrupt installation"
     that: "not (omero_web_symlink_st.stat.exists and omero_web_version is undefined)"
 
+# Check whether an upgrade is available
+- name: omero web | get latest downloads url
+  uri:
+    url: https://downloads.openmicroscopy.org/latest/omero
+    method: HEAD
+  register: _omero_web_downloads_latest
+
+# omego supports --release "latest" but not "present"
+# It's easiest to lookup a concrete version and use this for all omego
+# operations instead
+- name: omero web | get latest version
+  set_fact:
+    _omero_web_new_version: "{{
+      (omero_web_release in ('latest', 'present')) | ternary(
+         _omero_web_downloads_latest.url.strip('/').split('/')[-1],
+         omero_web_release
+      )
+  }}"
+
 - name: omero web | checkupgrade
   set_fact:
-    omero_web_update_needed: >
-      {{ (not omero_web_symlink_st.stat.exists) or
-         (omero_web_version is not defined) or
-         (omero_web_version.stdout | default('') |
-           regex_replace('^([^-]+).*', '\\1') != omero_web_release) |
-         bool
-      }}
+    # Experimentation shows "5.3.2 | version_compare('latest', '<')" is False
+    # so this should work as expected
+    _omero_web_update_needed: "{{
+      omero_web_symlink_st.stat.exists and
+      (omero_web_version.stdout | version_compare(
+         _omero_web_new_version,
+         omero_web_checkupgrade_comparator))
+    }}"
 
 - debug:
-    msg: "OMERO.web upgrade needed?: {{ omero_web_update_needed }}"
+    msg: "Upgrade needed: {{ omero_web_version.stdout }} -> {{ omero_web_release }}"
+  when: _omero_web_update_needed
+
+- name: omero web | set upgrade flag
+  set_fact:
+    _omero_web_execute_upgrade: "{{
+      omero_web_upgrade and
+      _omero_web_update_needed and
+      (omero_web_release != 'present')
+    }}"
 
 - name: omero web | stop omero web
   become: yes
   service:
     name: omero-web
     state: stopped
-  when: >
-    (omero_web_systemd_setup and
-     omero_web_update_needed and
-     omero_web_upgrade)
+  when: omero_web_systemd_setup and _omero_web_execute_upgrade
   # Might not be installed
   ignore_errors: yes
 
@@ -84,9 +110,7 @@
     python
   args:
     chdir: "{{ omero_web_basedir }}"
-  when: >
-    omero_web_update_needed and
-    (not omero_web_symlink_st.stat.exists or omero_web_upgrade)
+  when: _omero_web_execute_upgrade or not omero_web_symlink_st.stat.exists
   notify:
   - omero-web rewrite omero-web configuration
   - omero-web restart omero-web
