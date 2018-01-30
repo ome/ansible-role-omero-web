@@ -31,6 +31,8 @@ docker:
 
 ansible:
   host_vars:
+    omero-web:
+      omero_web_release: latest
     omero-web-inactive:
       # This tests a hypothetical instance where systemd is inactive but might
       # be activated in future
@@ -38,6 +40,7 @@ ansible:
       # that will never have systemd, e.g. a simple docker container
       omero_web_systemd_start: False
       omero_web_setup_nginx: False
+      omero_web_release: present
 
 verifier:
   name: testinfra
