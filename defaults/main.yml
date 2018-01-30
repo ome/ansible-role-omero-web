@@ -14,6 +14,9 @@ omero_web_ice_version: "3.6"
 # OMERO.web system user
 omero_web_system_user: omero-web
 
+# OMERO.web system user ID (If not defined one is chosen automatically)
+#omero_web_system_uid:
+
 # Setup systemd services
 omero_web_systemd_setup: True
 
