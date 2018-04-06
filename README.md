@@ -19,7 +19,6 @@ OMERO.web version and installation.
   It may be removed in future.
 - `omero_web_ice_version`: The ice version.
 - `omero_web_system_user`: OMERO.web system user, default `omero-web`.
-- `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
 
 OMERO.web configuration.
 - `omero_web_config_set`: A dictionary of `config-key: value` which will be used for the initial OMERO.web configuration, default empty.
@@ -27,6 +26,11 @@ OMERO.web configuration.
   Note configuration can also be done pre/post installation using the `web/config` conf.d style directory.
 - `omero_web_setup_nginx`: Install and configure Nginx, default `True`.
 
+OMERO.web systemd configuration
+- `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
+- `omero_web_systemd_limit_nofile`: Systemd limit for number of open files (default ignore)
+- `omero_web_systemd_after`: A list of strings with additional service names to appear in systemd unit file "After" statements. Default empty/none.
+- `omero_web_systemd_requires`: A list of strings with additional service names to appear in systemd unit file "Requires" statements. Default empty/none.
 
 Unstable features
 -----------------
