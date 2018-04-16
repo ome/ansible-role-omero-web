@@ -17,6 +17,15 @@ omero_web_system_user: omero-web
 # Setup systemd services
 omero_web_systemd_setup: True
 
+# Change the systemd limit for number of open files (default ignore)
+omero_web_systemd_limit_nofile:
+
+# Services which OMERO web needs to be running before it can start, such as remote storage.
+omero_web_systemd_after: []
+
+# Services which OMERO web needs to be concurrently running.
+omero_web_systemd_requires: []
+
 # Configuration key-values to be set
 omero_web_config_set: {}
 
