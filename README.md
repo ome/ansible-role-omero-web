@@ -13,14 +13,12 @@ Role Variables
 All variables are optional, see `defaults/main.yml` for the full list
 
 OMERO.web version and installation.
-- `omero_web_release`: The version of OMERO.web to install, default `latest`
-- `omero_web_upgrade`: Upgrade OMERO.web if the current version does not match `omero_web_release`.
-  This is a workaround for the inability to check for the latest version when `omero_web_release: latest`.
-  It may be removed in future.
+- `omero_web_release`: The OMERO.web release, e.g. `5.4.2`.
+  The default is `present` which will install the latest version if web is not already installed, but will not modify an existing web.
+  Use `latest` to automatically upgrade when a new version is released.
 - `omero_web_ice_version`: The ice version.
 - `omero_web_system_user`: OMERO.web system user, default `omero-web`.
 - `omero_web_system_uid`: OMERO.web system user ID (default automatic)
-- `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
 
 OMERO.web configuration.
 - `omero_web_config_set`: A dictionary of `config-key: value` which will be used for the initial OMERO.web configuration, default empty.
@@ -28,6 +26,11 @@ OMERO.web configuration.
   Note configuration can also be done pre/post installation using the `web/config` conf.d style directory.
 - `omero_web_setup_nginx`: Install and configure Nginx, default `True`.
 
+OMERO.web systemd configuration
+- `omero_web_systemd_setup`: Create and start the `omero-web` systemd service, default `True`
+- `omero_web_systemd_limit_nofile`: Systemd limit for number of open files (default ignore)
+- `omero_web_systemd_after`: A list of strings with additional service names to appear in systemd unit file "After" statements. Default empty/none.
+- `omero_web_systemd_requires`: A list of strings with additional service names to appear in systemd unit file "Requires" statements. Default empty/none.
 
 Unstable features
 -----------------

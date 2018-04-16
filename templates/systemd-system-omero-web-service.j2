@@ -3,6 +3,10 @@ Description=OMERO.web
 # Not mandatory, Nginx may be running on a different server
 #Requires=nginx.service
 After=network.service
+{% for value in omero_web_systemd_after %}After={{ value }}
+{% endfor %}
+{% for value in omero_web_systemd_requires %}Requires={{ value }}
+{% endfor %}
 
 [Service]
 User={{ omero_web_system_user }}
@@ -14,6 +18,9 @@ Environment="PATH={{ omero_web_basedir }}/venv/bin:/bin:/usr/bin"
 ExecStartPre={{ omero_web_basedir }}/config/omero-web-config-update.sh
 ExecStart={{ omero_web_basedir }}/venv/bin/python {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web start
 ExecStop={{ omero_web_basedir }}/venv/bin/python {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web stop
+{% if omero_web_systemd_limit_nofile %}
+LimitNOFILE={{ omero_web_systemd_limit_nofile }}
+{% endif %}
 
 [Install]
 WantedBy=multi-user.target
