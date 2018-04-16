@@ -1,5 +1,41 @@
----
+# Install 5.3 on both omero-web omero-web-inactive
+- hosts: all
 
+  pre_tasks:
+    # To test the upgrade process without breaking the idempotence check
+    # we need to add a flag so the first omero-web installation is
+    # only run once
+    - name: check whether omero-web has been installed at least once
+      stat:
+        path: /opt/omero/web/OMERO.web
+      register: molecule_test_omero_web_installed_1
+
+  roles:
+
+    - role: ansible-role-omero-web
+      omero_web_config_set:
+        omero.web.server_list:
+        - [localhost, 12345, molecule-test]
+      omero_web_release: "5.3"
+      when: not molecule_test_omero_web_installed_1.stat.exists
+
+  tasks:
+    - name: get omero-web version
+      become: yes
+      become_user: omero-web
+      command: /opt/omero/web/OMERO.web/bin/omero version
+      register: molecule_test_omero_web_version
+      changed_when: False
+
+    - name: check version
+      assert:
+        that: molecule_test_omero_web_version.stdout.startswith('5.3.')
+      when: not molecule_test_omero_web_installed_1.stat.exists
+
+# Attempt to upgrade
+# omero_web_release is defined in molecule.yml host_vars so:
+# - omero-web: latest: upgraded
+# - omero-web-inactive: present: unchanged at 5.3
 - hosts: all
   roles:
     - role: ansible-role-omero-web
