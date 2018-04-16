@@ -18,6 +18,7 @@ OMERO.web version and installation.
   Use `latest` to automatically upgrade when a new version is released.
 - `omero_web_ice_version`: The ice version.
 - `omero_web_system_user`: OMERO.web system user, default `omero-web`.
+- `omero_web_system_uid`: OMERO.web system user ID (default automatic)
 
 OMERO.web configuration.
 - `omero_web_config_set`: A dictionary of `config-key: value` which will be used for the initial OMERO.web configuration, default empty.
