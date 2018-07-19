@@ -1,6 +1,10 @@
 ---
 # setup nginx
 
+# Flush handlers to ensure configuration is reloaded
+- name: omero web | flush systemd handlers
+  meta: flush_handlers
+
 # Check whether the web configuration needs to be regenerated
 
 - name: omero web | check web timestamp

@@ -7,8 +7,8 @@
 
 - include: web-install.yml
 
-- include: web-nginx.yml
-  when: omero_web_setup_nginx
-
 - include: web-systemd.yml
   when: omero_web_systemd_setup
+
+- include: web-nginx.yml
+  when: omero_web_setup_nginx
