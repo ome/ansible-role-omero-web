@@ -1,6 +1,10 @@
 ---
 # setup nginx
 
+# Flush handlers to ensure configuration is reloaded
+- name: omero web | flush systemd handlers
+  meta: flush_handlers
+
 - name: omero web | generate nginx config
   become: true
   become_user: "{{ omero_web_system_user }}"
