@@ -28,4 +28,3 @@
   command: /usr/sbin/restorecon -R -v {{ omero_web_basedir }}/OMERO.web
   check_mode: no
   when: selinux_enabled
-
