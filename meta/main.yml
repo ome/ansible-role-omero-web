@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: ome-devel@lists.openmicroscopy.org.uk
   description: Install and configure OMERO.web
@@ -8,17 +9,16 @@ galaxy_info:
   - name: EL
     versions:
     - 7
+  role_name: omero_web
   galaxy_tags: []
 
 dependencies:
-- name: openmicroscopy.omero-common
-  src: openmicroscopy.omero-common
-- name: openmicroscopy.omego
-  src: openmicroscopy.omego
-- role: openmicroscopy.basedeps
-- role: openmicroscopy.ice
+- role: ome.omero_common
+- role: ome.omego
+- role: ome.basedeps
+- role: ome.ice
   ice_version: "{{ omero_web_ice_version }}"
-- role: openmicroscopy.nginx
+- role: ome.nginx
   when: omero_web_setup_nginx
-- role: openmicroscopy.omero-python-deps
-- role: openmicroscopy.selinux-utils
+- role: ome.omero_python_deps
+- role: ome.selinux_utils

@@ -1,6 +1,9 @@
 OMERO Web
 =========
 
+[![Build Status](https://travis-ci.org/ome/ansible-role-omero-web.svg)](https://travis-ci.org/ome/ansible-role-omero-web)
+[![Ansible Role](https://img.shields.io/ansible/role/41085.svg)](https://galaxy.ansible.com/ome/omero_web/)
+
 Installs and configures OMERO.web and Nginx.
 Uses a conf.d style configuration directory for managing the OMERO.web configuration.
 
@@ -53,7 +56,7 @@ This role regenerates the OMERO.web configuration file using the configuration f
 Manual configuration changes (`omero config ...`) will be lost following a restart of `omero-web` with systemd, you can disable this by setting `omero_web_always_reset_config: False`.
 Manual configuration changes will never be copied during an upgrade.
 
-See https://github.com/openmicroscopy/design/issues/70 for a proposal to add support for a conf.d style directory directly into OMERO.
+See https://github.com/ome/design/issues/70 for a proposal to add support for a conf.d style directory directly into OMERO.
 
 
 Example Playbooks
@@ -63,13 +66,13 @@ OMERO.web with the default backend server, `localhost:4064`:
 
     - hosts: localhost
       roles:
-        - role: openmicroscopy.omero-web
+        - role: ome.omero_web
 
 OMERO.web with a custom configuration using `omero_web_config_set`:
 
     - hosts: localhost
       roles:
-        - role: openmicroscopy.omero-web
+        - role: ome.omero_web
           omero_web_config_set:
             omero.web.server_list:
               - [omero.example.org, 4064, omero-example]
@@ -82,7 +85,7 @@ OMERO.web with a custom configuration using a configuration file `web-custom-con
 
     - hosts: localhost
       roles:
-        - role: openmicroscopy.omero-web
+        - role: ome.omero_web
       tasks:
         - copy:
             content: >
