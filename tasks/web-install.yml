@@ -133,6 +133,7 @@
     /usr/sbin/restorecon -R -v
     {{ ansible_check_mode | ternary('-n', '') }}
     {{ omero_web_basedir }}/OMERO.web
+  register: result
   check_mode: no
   changed_when: 'result.stdout != ""'
   when: selinux_enabled
