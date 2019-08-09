@@ -126,3 +126,14 @@
   notify:
   - omero-web rewrite omero-web configuration
   - omero-web restart omero-web
+
+- name: omero web | selinux restorecon
+  become: yes
+  command: >-
+    /usr/sbin/restorecon -R -v
+    {{ ansible_check_mode | ternary('-n', '') }}
+    {{ omero_web_basedir }}/OMERO.web
+  register: result
+  check_mode: no
+  changed_when: 'result.stdout != ""'
+  when: selinux_enabled
