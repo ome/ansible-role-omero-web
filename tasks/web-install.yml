@@ -2,14 +2,14 @@
 # install OMERO.web
 
 - name: omero web | is web symlink present
-  become: yes
+  become: true
   stat:
     path: "{{ omero_web_basedir }}/{{ omero_web_symlink }}"
   register: omero_web_symlink_st
 
 # This should be safe to always run including in check-mode
 - name: omero web | get web version
-  become: yes
+  become: true
   become_user: "{{ omero_web_system_user }}"
   command: >
     {{ omero_web_basedir }}/venv/bin/python
@@ -17,15 +17,18 @@
     version
   register: omero_web_version
   when: omero_web_symlink_st.stat.exists
-  changed_when: False
-  check_mode: no
+  changed_when: false
+  check_mode: false
   # Set a custom error message
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: omero web | check omero version could be obtained
   assert:
-    msg: "OMERO.web found but unable to get version, you may have a corrupt installation"
-    that: "not (omero_web_symlink_st.stat.exists and omero_web_version is undefined)"
+    msg: >-
+      OMERO.web found but unable to get version, you may have a corrupt
+      installation
+    that: >-
+      not (omero_web_symlink_st.stat.exists and omero_web_version is undefined)
 
 # Check whether an upgrade is available
 - name: omero web | get latest downloads url
@@ -33,7 +36,7 @@
     url: https://downloads.openmicroscopy.org/latest/omero
     method: HEAD
   register: _omero_web_downloads_latest
-  check_mode: no
+  check_mode: false
 
 # omego supports --release "latest" but not "present"
 # It's easiest to lookup a concrete version and use this for all omego
@@ -59,7 +62,8 @@
     }}"
 
 - debug:
-    msg: "Upgrade needed: {{ omero_web_version.stdout }} -> {{ omero_web_release }}"
+    msg: >-
+      Upgrade needed: {{ omero_web_version.stdout }} -> {{ omero_web_release }}
   when: _omero_web_update_needed
 
 - name: omero web | set upgrade flag
@@ -71,37 +75,37 @@
     }}"
 
 - name: omero web | stop omero web
-  become: yes
+  become: true
   service:
     name: omero-web
     state: stopped
   when: omero_web_systemd_setup and _omero_web_execute_upgrade
   # Might not be installed
-  ignore_errors: yes
+  ignore_errors: true
 
 - name: omero web | configuration script
-  become: yes
+  become: true
   template:
     dest: "{{ omero_web_basedir }}/config/omero-web-config-update.sh"
-    force: yes
+    force: true
     src: omero-web-config-update-sh.j2
     mode: 0555
   notify:
-  - omero-web rewrite omero-web configuration
-  - omero-web restart omero-web
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
 
 - name: omero web | configuration 00-omero-web.omero
-  become: yes
+  become: true
   template:
     dest: "{{ omero_web_basedir }}/config/00-omero-web.omero"
-    force: yes
+    force: true
     src: 00-omero-web-omero.j2
   notify:
-  - omero-web rewrite omero-web configuration
-  - omero-web restart omero-web
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
 
 - name: omero web | install omero web
-  become: yes
+  become: true
   become_user: "{{ omero_web_system_user }}"
   command: >
     {{ omero_web_omego }}
@@ -113,27 +117,28 @@
     chdir: "{{ omero_web_basedir }}"
   when: _omero_web_execute_upgrade or not omero_web_symlink_st.stat.exists
   notify:
-  - omero-web rewrite omero-web configuration
-  - omero-web restart omero-web
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
 
 - name: omero web | setup virtualenv
-  become: yes
+  become: true
   pip:
-    requirements: "{{ omero_web_basedir }}/OMERO.web/share/web/requirements-py27.txt"
+    requirements: >-
+      {{ omero_web_basedir }}/OMERO.web/share/web/requirements-py27.txt
     state: present
     virtualenv: "{{ omero_web_basedir }}/venv"
-    virtualenv_site_packages: yes
+    virtualenv_site_packages: true
   notify:
-  - omero-web rewrite omero-web configuration
-  - omero-web restart omero-web
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
 
 - name: omero web | selinux restorecon
-  become: yes
+  become: true
   command: >-
     /usr/sbin/restorecon -R -v
     {{ ansible_check_mode | ternary('-n', '') }}
     {{ omero_web_basedir }}/OMERO.web
   register: result
-  check_mode: no
+  check_mode: false
   changed_when: 'result.stdout != ""'
   when: selinux_enabled

@@ -5,7 +5,7 @@
 
 - name: omero web | check web timestamp
   stat:
-    follow: no
+    follow: false
     path: "{{ omero_web_basedir }}/{{ omero_web_symlink }}"
   register: omero_web_st
 
@@ -24,9 +24,10 @@
 - debug:
     msg: "Nginx configuration needed? {{ omero_web_nginx_update_needed }}"
 
-# This will generate a warning about running su, ignore it since we need to run as root for the redirection
+# This will generate a warning about running su, ignore it since we need to run
+# as root for the redirection
 - name: omero web | generate nginx config
-  become: yes
+  become: true
   shell: >
     su {{ omero_web_system_user }} -lc
     "{{ omero_web_basedir }}/venv/bin/python
@@ -37,18 +38,18 @@
   notify: restart nginx
 
 - name: omero web | nginx remove system defaults
-  become: yes
+  become: true
   replace:
-    backup: yes
+    backup: true
     dest: /etc/nginx/nginx.conf
     regexp: '80\s*default_server\s*;'
     replace: '80; # default_server;'
   notify: restart nginx
 
 - name: omero web | enable nginx
-  become: yes
+  become: true
   service:
-    enabled: yes
+    enabled: true
     name: nginx
     state: started
 

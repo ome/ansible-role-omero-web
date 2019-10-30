@@ -1,7 +1,6 @@
 ---
 # defaults for omero-web
 
-# WARNING: This will currently always attempt to update the server since the registry check is broken
 omero_web_release: present
 
 # Ice version
@@ -11,15 +10,16 @@ omero_web_ice_version: "3.6"
 omero_web_system_user: omero-web
 
 # OMERO.web system user ID (If not defined one is chosen automatically)
-#omero_web_system_uid:
+# omero_web_system_uid:
 
 # Setup systemd services
-omero_web_systemd_setup: True
+omero_web_systemd_setup: true
 
 # Change the systemd limit for number of open files (default ignore)
 omero_web_systemd_limit_nofile:
 
-# Services which OMERO web needs to be running before it can start, such as remote storage.
+# Services which OMERO web needs to be running before it can start, such as
+# remote storage.
 omero_web_systemd_after: []
 
 # Services which OMERO web needs to be concurrently running.
@@ -29,7 +29,7 @@ omero_web_systemd_requires: []
 omero_web_config_set: {}
 
 # Install and configure Nginx
-omero_web_setup_nginx: True
+omero_web_setup_nginx: true
 
 
 ######################################################################
@@ -37,10 +37,10 @@ omero_web_setup_nginx: True
 ######################################################################
 
 # DEVELOPMENT: If True clear the existing configuration before regenerating
-omero_web_always_reset_config: True
+omero_web_always_reset_config: true
 
 # DEVELOPMENT: Automatically start systemd omero-web
-omero_web_systemd_start: True
+omero_web_systemd_start: true
 
 # Base directory for the web installation
 omero_web_basedir: "{{ omero_common_basedir }}/web"
@@ -57,7 +57,7 @@ omero_web_omego_additional_args: ""
 # If True and web is already installed then upgrade to the version in
 # omero_web_release, otherwise don't upgrade an existing web.
 # This should not be needed if versions are correctly compared.
-omero_web_upgrade: True
+omero_web_upgrade: true
 
 # DEVELOPMENT: Operator for comparing current-version against
 # omero_web_release, e.g. '!='. Default is to upgrade when

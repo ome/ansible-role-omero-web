@@ -5,7 +5,7 @@
 # See web-install.yml
 
 - name: omero web | install python redis package
-  become: yes
+  become: true
   yum:
     name: python-redis
     state: present
@@ -13,11 +13,11 @@
 # selinux
 
 - name: omero web | selinux booleans
-  become: yes
+  become: true
   seboolean:
     name: "{{ item }}"
-    state: yes
-    persistent: yes
+    state: true
+    persistent: true
   with_items:
     - httpd_read_user_content
     - httpd_enable_homedirs
@@ -25,7 +25,7 @@
 
 # Alternatively set httpd_can_network_connect=yes to allow all ports
 - name: omero web | selinux ports
-  become: yes
+  become: true
   seport:
     ports: "4080"
     proto: tcp
