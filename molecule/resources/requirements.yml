@@ -1,3 +1,4 @@
+---
 - src: ome.omero_common
 - src: ome.omego
 - src: ome.basedeps

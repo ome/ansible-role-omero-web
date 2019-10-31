@@ -1,0 +1,36 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/resources/requirements.yml
+driver:
+  name: docker
+lint:
+  name: yamllint
+platforms:
+  - name: omero-web-inactive
+    image: centos/systemd
+    command: /sbin/init
+    privileged: true
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    converge: ../resources/playbook.yml
+  inventory:
+    host_vars:
+      omero-web-inactive:
+        # This tests a hypothetical instance where systemd is inactive but might
+        # be activated in future
+        # It also tests this role can be used to install omero.web on a system
+        # that will never have systemd, e.g. a simple docker container
+        omero_web_systemd_start: false
+        omero_web_setup_nginx: false
+        omero_web_release: present
+scenario:
+  name: inactive
+verifier:
+  name: testinfra
+  lint:
+    name: flake8

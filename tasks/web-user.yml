@@ -2,18 +2,18 @@
 # omero-web system user
 
 - name: omero web | create system user
-  become: yes
+  become: true
   user:
     name: "{{ omero_web_system_user }}"
     home: "{{ omero_web_basedir }}"
-    createhome: no
+    createhome: false
     state: present
-    system: yes
+    system: true
     uid: "{{ omero_web_system_uid | default(omit) }}"
 
 # TODO: Ideally everything should be read-only apart from the var directory
 - name: omero web | create web directories
-  become: yes
+  become: true
   file:
     path: "{{ item }}"
     state: directory

@@ -6,19 +6,19 @@ galaxy_info:
   license: BSD
   min_ansible_version: 2.2
   platforms:
-  - name: EL
-    versions:
-    - 7
+    - name: EL
+      versions:
+        - 7
   role_name: omero_web
   galaxy_tags: []
 
 dependencies:
-- role: ome.omero_common
-- role: ome.omego
-- role: ome.basedeps
-- role: ome.ice
-  ice_version: "{{ omero_web_ice_version }}"
-- role: ome.nginx
-  when: omero_web_setup_nginx
-- role: ome.omero_python_deps
-- role: ome.selinux_utils
+  - role: ome.omero_common
+  - role: ome.omego
+  - role: ome.basedeps
+  - role: ome.ice
+    ice_version: "{{ omero_web_ice_version }}"
+  - role: ome.nginx
+    when: omero_web_setup_nginx
+  - role: ome.omero_python_deps
+  - role: ome.selinux_utils
