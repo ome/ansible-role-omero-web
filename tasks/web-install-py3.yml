@@ -3,7 +3,8 @@
 
 # TODO: allow version to be specified, handle latest/present etc
 # E.g. get version info from https://pypi.org/pypi/omero-web/json
-# and parse using https://stackoverflow.com/questions/54025894/how-to-sort-version-numbers-in-ansible
+# and parse using
+# https://stackoverflow.com/questions/54025894/how-to-sort-version-numbers-in-ansible
 
 # TODO: Move to a separate role?
 - name: omero web | install python3
