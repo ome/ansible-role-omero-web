@@ -52,13 +52,18 @@
 
 - name: omero web | checkupgrade
   set_fact:
-    # Experimentation shows "5.3.2 | version_compare('latest', '<')" is False
-    # so this should work as expected
+    # If _omero_web_new_version does not begin with a number assume it's a
+    # custom build, always upgrade
     _omero_web_update_needed: "{{
-      omero_web_symlink_st.stat.exists and
-      (omero_web_version.stdout | version_compare(
-         _omero_web_new_version,
-         omero_web_checkupgrade_comparator))
+      (
+        not (_omero_web_new_version | regex_search('^[0-9]'))
+      ) or (
+        omero_web_symlink_st.stat.exists and
+        (omero_web_version.stdout is version_compare(
+           _omero_web_new_version,
+           omero_web_checkupgrade_comparator)
+        )
+      )
     }}"
 
 - debug:
