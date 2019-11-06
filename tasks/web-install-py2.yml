@@ -146,6 +146,17 @@
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
 
+- name: omero web | patch bin/omero to use virtualenv
+  become: true
+  replace:
+    mode: 0755
+    path: "{{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero"
+    regexp: "^#!.+python$"
+    replace: "#!{{ omero_web_basedir }}/venv/bin/python"
+  notify:
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
+
 - name: omero web | selinux restorecon
   become: true
   command: >-
