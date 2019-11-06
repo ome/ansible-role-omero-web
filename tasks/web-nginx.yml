@@ -3,6 +3,13 @@
 
 # Check whether the web configuration needs to be regenerated
 
+# TODO: How do we know whether to regenerate the config when omero-web is
+# upgraded using pip?
+# This might be a good time to implement
+# https://github.com/ome/openmicroscopy/pull/5994
+# so that we always attempt to template the configuration and ansible takes care
+# of figuring out whether it's chagned or not
+
 - name: omero web | check web timestamp
   stat:
     follow: false
@@ -30,9 +37,7 @@
   become: true
   shell: >
     su {{ omero_web_system_user }} -lc
-    "{{ omero_web_basedir }}/venv/bin/python
-    {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web
-    config nginx"
+    "{{ omero_web_omero_command }} web config nginx"
     > /etc/nginx/conf.d/omero-web.conf
   when: omero_web_nginx_update_needed
   notify: restart nginx

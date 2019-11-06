@@ -5,7 +5,11 @@
 
 - include: web-dependencies.yml
 
-- include: web-install.yml
+- include: web-install-py2.yml
+  when: not omero_web_python3
+
+- include: web-install-py3.yml
+  when: omero_web_python3
 
 - include: web-nginx.yml
   when: omero_web_setup_nginx

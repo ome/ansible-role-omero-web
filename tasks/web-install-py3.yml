@@ -1,0 +1,113 @@
+---
+# install OMERO.web
+
+# TODO: allow version to be specified, handle latest/present etc
+# E.g. get version info from https://pypi.org/pypi/omero-web/json
+# and parse using https://stackoverflow.com/questions/54025894/how-to-sort-version-numbers-in-ansible
+
+# TODO: Move to a separate role?
+- name: omero web | install python3
+  become: true
+  yum:
+    name: python3
+    state: present
+
+- name: omero web | is web symlink present
+  become: true
+  stat:
+    path: "{{ omero_web_omerodir }}"
+  register: omero_web_symlink_st
+
+# Symlink ⇒ Old Python 2 installation: stop OMERO before doing anything else
+- name: omero web | stop omero web
+  become: true
+  service:
+    name: omero-web
+    state: stopped
+  when: omero_web_symlink_st.stat.exists and omero_web_symlink_st.stat.islnk
+
+- name: omero web | remove symlink
+  become:
+  file:
+    path: "{{ omero_web_omerodir }}"
+    state: absent
+  when: omero_web_symlink_st.stat.exists and omero_web_symlink_st.stat.islnk
+
+- name: omero web | create OMERODIR readonly
+  become: true
+  file:
+    path: "{{ omero_web_omerodir }}{{ item }}"
+    state: directory
+  with_items:
+    - ""
+    - /bin
+
+- name: omero web | create OMERODIR writeable
+  become: true
+  file:
+    path: "{{ omero_web_omerodir }}{{ item }}"
+    state: directory
+    owner: "{{ omero_web_system_user }}"
+  with_items:
+    - /etc/grid
+    - /var
+
+- name: omero web | configuration script
+  become: true
+  template:
+    dest: "{{ omero_web_basedir }}/config/omero-web-config-update.sh"
+    force: true
+    src: omero-web-config-update-sh.j2
+    mode: 0555
+  notify:
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
+
+- name: omero web | configuration 00-omero-web.omero
+  become: true
+  template:
+    dest: "{{ omero_web_basedir }}/config/00-omero-web.omero"
+    force: true
+    src: 00-omero-web-omero.j2
+  notify:
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
+
+# TODO: figure out dependencies, use omero-web version
+- name: omero web | setup omero web virtualenv3
+  become: true
+  pip:
+    name:
+      - https://users.openmicroscopy.org.uk/~spli/centos-zeroc-ice-py/zeroc_ice-3.6.5-cp36-cp36m-linux_x86_64.whl
+      - omero-py==5.6.dev2
+      - omero-web==5.6.dev3
+      - redis
+    state: present
+    virtualenv: "{{ omero_web_virtualenv_basedir }}"
+    virtualenv_command: /usr/bin/python3 -mvenv
+  when: omero_web_python3
+  notify:
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
+
+# Remembering to set OMERODIR everywhere is prone to error
+- name: omero web | create omero web wrapper
+  become: true
+  copy:
+    content: |
+      #!/bin/sh
+      export OMERODIR="{{ omero_web_omerodir }}"
+      exec {{ omero_web_virtualenv_basedir }}/bin/omero "$@"
+    dest: "{{ omero_web_omero_command }}"
+    mode: "0755"
+
+- name: omero web | selinux restorecon
+  become: true
+  command: >-
+    /usr/sbin/restorecon -R -v
+    {{ ansible_check_mode | ternary('-n', '') }}
+    {{ omero_web_basedir }}/OMERO.web
+  register: result
+  check_mode: false
+  changed_when: 'result.stdout != ""'
+  when: selinux_enabled

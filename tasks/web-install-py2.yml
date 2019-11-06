@@ -1,6 +1,12 @@
 ---
 # install OMERO.web
 
+- name: omero web | install python redis package
+  become: true
+  yum:
+    name: python-redis
+    state: present
+
 - name: omero web | is web symlink present
   become: true
   stat:
@@ -8,11 +14,14 @@
   register: omero_web_symlink_st
 
 # This should be safe to always run including in check-mode
+# Note if this was installed using a previous version of the role
+# bin/omero might not have been patched to include the path to the
+# virtualenv so we need the full path to Python
 - name: omero web | get web version
   become: true
   become_user: "{{ omero_web_system_user }}"
   command: >
-    {{ omero_web_basedir }}/venv/bin/python
+    {{ omero_web_virtualenv_basedir }}/bin/python
     {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero
     version
   register: omero_web_version
@@ -131,7 +140,7 @@
     requirements: >-
       {{ omero_web_basedir }}/OMERO.web/share/web/requirements-py27.txt
     state: present
-    virtualenv: "{{ omero_web_basedir }}/venv"
+    virtualenv: "{{ omero_web_virtualenv_basedir }}"
     virtualenv_site_packages: true
   notify:
     - omero-web rewrite omero-web configuration

@@ -31,10 +31,28 @@ omero_web_config_set: {}
 # Install and configure Nginx
 omero_web_setup_nginx: true
 
+# Python 3?
+omero_web_python3: false
+
 
 ######################################################################
 # Expert users only!
 ######################################################################
+
+# Path to virtualenv
+omero_web_virtualenv_basedir: >-
+  {{
+    omero_web_python3 | ternary(
+      omero_web_basedir + '/venv3',
+      omero_web_basedir + '/venv'
+    )
+  }}
+
+# OMERODIR
+omero_web_omerodir: "{{ omero_web_basedir }}/{{ omero_web_symlink }}"
+
+# How to run omero
+omero_web_omero_command: "{{ omero_web_omerodir }}/bin/omero"
 
 # DEVELOPMENT: If True clear the existing configuration before regenerating
 omero_web_always_reset_config: true
