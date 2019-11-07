@@ -37,11 +37,25 @@
 - name: omero web | create OMERODIR readonly
   become: true
   file:
-    path: "{{ omero_web_omerodir }}{{ item }}"
+    path: "{{ item }}"
     state: directory
   with_items:
-    - ""
-    - /bin
+    - "{{ omero_web_basedir }}"
+    - "{{ omero_web_basedir }}/config"
+    - "{{ omero_web_omerodir }}"
+    - "{{ omero_web_omerodir }}/bin"
+
+# omero-web system user
+# TODO: Check is home directory location be modified for an upgrade?
+- name: omero web | create system user
+  become: true
+  user:
+    name: "{{ omero_web_system_user }}"
+    home: "{{ omero_web_omerodir }}/var"
+    createhome: false
+    state: present
+    system: true
+    uid: "{{ omero_web_system_uid | default(omit) }}"
 
 - name: omero web | create OMERODIR writeable
   become: true
@@ -78,15 +92,10 @@
 - name: omero web | setup omero web virtualenv3
   become: true
   pip:
-    name:
-      - https://users.openmicroscopy.org.uk/~spli/centos-zeroc-ice-py/zeroc_ice-3.6.5-cp36-cp36m-linux_x86_64.whl
-      - omero-py==5.6.dev2
-      - omero-web==5.6.dev3
-      - redis
+    name: "{{ omero_web_requirements + omero_web_python_addons }}"
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
     virtualenv_command: /usr/bin/python3 -mvenv
-  when: omero_web_python3
   notify:
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web

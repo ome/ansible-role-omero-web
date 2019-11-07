@@ -7,6 +7,27 @@
     name: python-redis
     state: present
 
+# omero-web system user
+- name: omero web | create system user
+  become: true
+  user:
+    name: "{{ omero_web_system_user }}"
+    home: "{{ omero_web_basedir }}"
+    createhome: false
+    state: present
+    system: true
+    uid: "{{ omero_web_system_uid | default(omit) }}"
+
+- name: omero web | create web directories
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ omero_web_system_user }}"
+  with_items:
+    - "{{ omero_web_basedir }}"
+    - "{{ omero_web_basedir }}/config"
+
 - name: omero web | is web symlink present
   become: true
   stat:

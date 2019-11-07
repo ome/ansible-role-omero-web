@@ -1,3 +1,15 @@
+# Breaking changes when switching to Python 3
+When `omero_web_python3: true` the following breaking changes take place.
+
+This will be the default in the next major release of this role.
+Note this role should handle upgrades.
+
+## Changes
+- `/opt/omero/web/OMERO.web/` is a directory not a symlink.
+- Home directory of `omero_web_system_user` is changed from `/opt/omero/web` to `/opt/omero/web/OMERO.web/var`.
+  This increases security by restricting the directories that are writeable by `omero_web_system_user`.
+
+
 # Changes in Version 2
 
 ## Removed variables
