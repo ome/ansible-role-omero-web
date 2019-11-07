@@ -106,6 +106,7 @@
   copy:
     content: |
       #!/bin/sh
+      . {{ omero_web_virtualenv_basedir }}/bin/activate
       export OMERODIR="{{ omero_web_omerodir }}"
       exec {{ omero_web_virtualenv_basedir }}/bin/omero "$@"
     dest: "{{ omero_web_omero_command }}"
