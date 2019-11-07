@@ -92,7 +92,7 @@
 - name: omero web | setup omero web virtualenv3
   become: true
   pip:
-    name: "{{ omero_web_requirements + omero_web_python_addons }}"
+    name: "{{ omero_web_python_requirements + omero_web_python_addons }}"
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
     virtualenv_command: /usr/bin/python3 -mvenv

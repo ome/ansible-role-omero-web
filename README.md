@@ -24,8 +24,7 @@ OMERO.web version and installation.
 - `omero_web_system_uid`: OMERO.web system user ID (default automatic)
 - `omero_web_python3`: Use Python 3, default `false`
 
-Python 3 only parameters (unstable).
-- `omero_web_requirements`: List of required Python packages (must include omero-web!)
+Python 3 only parameters.
 - `omero_web_python_addons`: List of additional Python packages to be installed into virtualenv
 
 
