@@ -111,6 +111,9 @@
       exec {{ omero_web_virtualenv_basedir }}/bin/omero "$@"
     dest: "{{ omero_web_omero_command }}"
     mode: "0755"
+  notify:
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
 
 - name: omero web | selinux restorecon
   become: true
