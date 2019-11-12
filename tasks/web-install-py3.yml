@@ -28,7 +28,7 @@
   when: omero_web_symlink_st.stat.exists and omero_web_symlink_st.stat.islnk
 
 - name: omero web | remove symlink
-  become:
+  become: true
   file:
     path: "{{ omero_web_omerodir }}"
     state: absent
