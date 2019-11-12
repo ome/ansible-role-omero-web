@@ -50,3 +50,45 @@
         omero.web.server_list:
           - [localhost, 12345, molecule-test]
       omero_web_python3: true
+
+      omero_web_apps_packages:
+        - omero-mapr
+      omero_web_apps_names:
+        - omero_mapr
+      omero_web_apps_top_links:
+        - label: OMERO
+          link:
+            viewname: webindex
+            query_string: {experimenter: -1}
+          attrs:
+            title: Image Data Repository
+        - label: Genes
+          link:
+            viewname: maprindex_gene
+            query_string: {experimenter: -1}
+          attrs:
+            title: Genes browser
+      omero_web_apps_config_append:
+        omero.web.mapr.config:
+          - menu: "gene"
+            config:
+              default:
+                - "Gene Symbol"
+              all:
+                - "Gene Symbol"
+                - "Gene Identifier"
+              ns:
+                - "openmicroscopy.org/mapr/gene"
+              label: "Gene"
+              case_sensitive: true
+          - menu: "genesupplementary"
+            config:
+              default: []
+              all: []
+              ns:
+                - "openmicroscopy.org/mapr/gene/supplementary"
+              label: "Gene supplementary"
+      omero_web_apps_config_set:
+        example.string: example value
+        example.boolean: true
+        example.integer: 2

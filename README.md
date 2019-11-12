@@ -24,10 +24,6 @@ OMERO.web version and installation.
 - `omero_web_system_uid`: OMERO.web system user ID (default automatic)
 - `omero_web_python3`: Use Python 3, default `false`
 
-Python 3 only parameters.
-- `omero_web_python_addons`: List of additional Python packages to be installed into virtualenv
-
-
 OMERO.web configuration.
 - `omero_web_config_set`: A dictionary of `config-key: value` which will be used for the initial OMERO.web configuration, default empty.
   `value` can be a string, or an object (list, dictionary) that will be automatically converted to quoted JSON.
@@ -39,6 +35,24 @@ OMERO.web systemd configuration
 - `omero_web_systemd_limit_nofile`: Systemd limit for number of open files (default ignore)
 - `omero_web_systemd_after`: A list of strings with additional service names to appear in systemd unit file "After" statements. Default empty/none.
 - `omero_web_systemd_requires`: A list of strings with additional service names to appear in systemd unit file "Requires" statements. Default empty/none.
+
+Python 3 only parameters
+- `omero_web_python_addons`: List of additional Python packages to be installed into virtualenv
+
+The [omero-web-apps](https://galaxy.ansible.com/ome/omero_web_apps) role has been merged into this role for Python 3 deployments.
+All variables are optional:
+- `omero_web_apps_names`: List of web application names to be appended to `omero.web.apps`
+- `omero_web_apps_packages`: List of pip installable packages
+- `omero_web_apps_top_links`: Lists of top link dictionaries to be appended to `omero.web.ui.top_links`, of the form:
+  - `label`: Label
+  - `link`: URL or a dict
+  - `attrs`: Dictionary of attributes (optional)
+- `omero_web_apps_ui_metadata_panes`: Items to be appended to `omero.web.ui.metadata_panes`
+- `omero_web_apps_config_append`: Dictionary of other key-[list of values] pairs to be appended (multiple values can be appended to the same key)
+- `omero_web_apps_config_set`: Dictionary of other key-value pairs to be set
+- `omero_web_apps_config_name`: The basename of the configuration file (`web/config/{{ omero_web_apps_config_name }}.omero`)
+
+
 
 Unstable features
 -----------------

@@ -88,11 +88,29 @@
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
 
+- name: omero web | add application web configuration
+  become: true
+  template:
+    dest: "{{ omero_web_basedir }}/config/\
+      {{ omero_web_apps_config_name }}.omero"
+    force: true
+    src: omero-web-apps-omero.j2
+  notify:
+    - restart omero-web
+
 # TODO: figure out dependencies, use omero-web version
+# Install/upgrade OMERO.web after the configuration files are updated
+# This should mean that if OMERO.web fails to start due to a configuration
+# error it will be updated before a restart
 - name: omero web | setup omero web virtualenv3
   become: true
   pip:
-    name: "{{ omero_web_python_requirements + omero_web_python_addons }}"
+    name: >-
+      {{
+        omero_web_python_requirements +
+        omero_web_python_addons +
+        omero_web_apps_packages
+      }}
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
     virtualenv_command: /usr/bin/python3 -mvenv

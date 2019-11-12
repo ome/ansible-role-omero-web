@@ -8,6 +8,7 @@ Note this role should handle upgrades.
 - `/opt/omero/web/OMERO.web/` is a directory not a symlink.
 - Home directory of `omero_web_system_user` is changed from `/opt/omero/web` to `/opt/omero/web/OMERO.web/var`.
   This increases security by restricting the directories that are writeable by `omero_web_system_user`.
+- The [omero-web-apps](https://galaxy.ansible.com/ome/omero_web_apps) role has been merged into this role.
 
 
 # Changes in Version 2
