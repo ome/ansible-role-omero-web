@@ -72,8 +72,8 @@ omero_web_apps_config_name: omero-web-apps
 # List of python3 packages to install
 omero_web_python_requirements:
   - https://github.com/ome/zeroc-ice-py-centos7/releases/download/0.2.1/zeroc_ice-3.6.5-cp36-cp36m-linux_x86_64.whl
-  - omero-py==5.6.dev2
-  - omero-web==5.6.dev3
+  - omero-py=={{ _omero_py_version | default('5.6.dev2') }}
+  - omero-web=={{ _omero_web_version | default('5.6.dev3') }}
   - redis
 
 # Path to virtualenv
