@@ -96,7 +96,8 @@
     force: true
     src: omero-web-apps-omero.j2
   notify:
-    - restart omero-web
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
 
 # TODO: figure out dependencies, use omero-web version
 # Install/upgrade OMERO.web after the configuration files are updated
