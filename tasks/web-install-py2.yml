@@ -35,9 +35,6 @@
   register: omero_web_symlink_st
 
 # This should be safe to always run including in check-mode
-# Note if this was installed using a previous version of the role
-# bin/omero might not have been patched to include the path to the
-# virtualenv so we need the full path to Python
 - name: omero web | get web version
   become: true
   become_user: "{{ omero_web_system_user }}"
@@ -163,17 +160,6 @@
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
     virtualenv_site_packages: true
-  notify:
-    - omero-web rewrite omero-web configuration
-    - omero-web restart omero-web
-
-- name: omero web | patch bin/omero to use virtualenv
-  become: true
-  replace:
-    mode: 0755
-    path: "{{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero"
-    regexp: "^#!.+python$"
-    replace: "#!{{ omero_web_basedir }}/venv/bin/python"
   notify:
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
