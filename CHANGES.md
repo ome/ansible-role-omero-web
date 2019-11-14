@@ -1,4 +1,6 @@
 # Breaking changes when switching to Python 3
+***This is for development and testing purposes only. Do not use on a production server.***
+
 When `omero_web_python3: true` the following breaking changes take place.
 
 This will be the default in the next major release of this role.
@@ -11,6 +13,8 @@ Note this role should handle upgrades.
   This increases security by restricting the directories that are writeable by `omero_web_system_user`.
 - The [omero-web-apps](https://galaxy.ansible.com/ome/omero_web_apps) role has been merged into this role.
 - `omero_web_release` does not support `latest`, only `present` and full versions.
+
+There may be other breaking changes before release.
 
 
 # Changes in Version 2

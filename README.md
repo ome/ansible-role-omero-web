@@ -22,7 +22,6 @@ OMERO.web version and installation.
 - `omero_web_ice_version`: The ice version.
 - `omero_web_system_user`: OMERO.web system user, default `omero-web`.
 - `omero_web_system_uid`: OMERO.web system user ID (default automatic)
-- `omero_web_python3`: Use Python 3, default `false`
 
 OMERO.web configuration.
 - `omero_web_config_set`: A dictionary of `config-key: value` which will be used for the initial OMERO.web configuration, default empty.
@@ -36,7 +35,9 @@ OMERO.web systemd configuration
 - `omero_web_systemd_after`: A list of strings with additional service names to appear in systemd unit file "After" statements. Default empty/none.
 - `omero_web_systemd_requires`: A list of strings with additional service names to appear in systemd unit file "Requires" statements. Default empty/none.
 
-Python 3 only parameters
+Python 3 only parameters.
+***This is for development and testing purposes only. Do not use on a production server.***
+- `omero_web_python3`: Use Python 3, default `false`
 - `omero_web_python_addons`: List of additional Python packages to be installed into virtualenv
 
 The [omero-web-apps](https://galaxy.ansible.com/ome/omero_web_apps) role has been merged into this role for Python 3 deployments.
