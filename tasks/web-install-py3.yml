@@ -122,14 +122,10 @@
 # Remembering to set OMERODIR everywhere is prone to error
 - name: omero web | create omero web wrapper
   become: true
-  copy:
-    content: |
-      #!/bin/sh
-      . {{ omero_web_virtualenv_basedir }}/bin/activate
-      export OMERODIR="{{ omero_web_omerodir }}"
-      exec {{ omero_web_virtualenv_basedir }}/bin/omero "$@"
+  template:
     dest: "{{ omero_web_omero_command }}"
-    mode: "0755"
+    src: bin-omero.j2
+    mode: 0555
   notify:
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
