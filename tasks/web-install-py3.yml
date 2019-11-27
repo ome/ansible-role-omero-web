@@ -12,6 +12,17 @@
   yum:
     name: python36
     state: present
+  when: ansible_os_family == 'RedHat'
+
+- name: omero web | install python3
+  become: true
+  apt:
+    name:
+      - python3.6
+      - python3.6-distutils
+      - python3.6-venv
+    state: present
+  when: ansible_os_family == 'Debian'
 
 - name: omero web | is web symlink present
   become: true

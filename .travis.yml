@@ -15,6 +15,7 @@ env:
   - SCENARIO=active
   - SCENARIO=inactive
   - SCENARIO=active-py3
+  - SCENARIO=active-py3-ubuntu1804
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

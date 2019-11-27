@@ -52,7 +52,8 @@
       omero_web_python3: true
 
       omero_web_apps_packages:
-        - omero-mapr
+        # TODO: Unpin when released
+        - omero-mapr==0.4.dev1
       omero_web_apps_names:
         - omero_mapr
       omero_web_apps_top_links:
