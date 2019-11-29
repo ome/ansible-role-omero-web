@@ -1,15 +1,4 @@
 ---
-# System dependencies for OMERO.web
-# Additional requirements will be installed after OMERO.web has been
-# downloaded since it comes with its own requirements.txt
-# See web-install.yml
-
-- name: omero web | install python redis package
-  become: true
-  yum:
-    name: python-redis
-    state: present
-
 # selinux
 
 - name: omero web | selinux booleans

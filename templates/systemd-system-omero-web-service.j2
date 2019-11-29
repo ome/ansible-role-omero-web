@@ -11,13 +11,15 @@ After=network.service
 [Service]
 User={{ omero_web_system_user }}
 Type=forking
-PIDFile={{ omero_web_basedir }}/{{ omero_web_symlink }}/var/django.pid
+PIDFile={{ omero_web_omerodir }}/var/django.pid
 Restart=no
 RestartSec=10
-Environment="PATH={{ omero_web_basedir }}/venv/bin:/bin:/usr/bin"
+{% if not omero_web_python3 %}
+Environment="PATH={{ omero_web_virtualenv_basedir }}/bin:/bin:/usr/bin"
+{% endif %}
 ExecStartPre={{ omero_web_basedir }}/config/omero-web-config-update.sh
-ExecStart={{ omero_web_basedir }}/venv/bin/python {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web start
-ExecStop={{ omero_web_basedir }}/venv/bin/python {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero web stop
+ExecStart={{ omero_web_omero_command }} web start
+ExecStop={{ omero_web_omero_command }} web stop
 {% if omero_web_systemd_limit_nofile %}
 LimitNOFILE={{ omero_web_systemd_limit_nofile }}
 {% endif %}

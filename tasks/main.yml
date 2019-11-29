@@ -1,14 +1,16 @@
 ---
 # tasks for omero-web
 
-- include: web-user.yml
-
 - include: web-dependencies.yml
 
-- include: web-install.yml
+- include: web-install-py2.yml
+  when: not omero_web_python3
 
-- include: web-nginx.yml
-  when: omero_web_setup_nginx
+- include: web-install-py3.yml
+  when: omero_web_python3
 
 - include: web-systemd.yml
   when: omero_web_systemd_setup
+
+- include: web-nginx.yml
+  when: omero_web_setup_nginx

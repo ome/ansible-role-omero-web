@@ -1,6 +1,33 @@
 ---
 # install OMERO.web
 
+- name: omero web | install python redis package
+  become: true
+  yum:
+    name: python-redis
+    state: present
+
+# omero-web system user
+- name: omero web | create system user
+  become: true
+  user:
+    name: "{{ omero_web_system_user }}"
+    home: "{{ omero_web_basedir }}"
+    createhome: false
+    state: present
+    system: true
+    uid: "{{ omero_web_system_uid | default(omit) }}"
+
+- name: omero web | create web directories
+  become: true
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ omero_web_system_user }}"
+  with_items:
+    - "{{ omero_web_basedir }}"
+    - "{{ omero_web_basedir }}/config"
+
 - name: omero web | is web symlink present
   become: true
   stat:
@@ -12,7 +39,7 @@
   become: true
   become_user: "{{ omero_web_system_user }}"
   command: >
-    {{ omero_web_basedir }}/venv/bin/python
+    {{ omero_web_virtualenv_basedir }}/bin/python
     {{ omero_web_basedir }}/{{ omero_web_symlink }}/bin/omero
     version
   register: omero_web_version
@@ -131,7 +158,7 @@
     requirements: >-
       {{ omero_web_basedir }}/OMERO.web/share/web/requirements-py27.txt
     state: present
-    virtualenv: "{{ omero_web_basedir }}/venv"
+    virtualenv: "{{ omero_web_virtualenv_basedir }}"
     virtualenv_site_packages: true
   notify:
     - omero-web rewrite omero-web configuration
