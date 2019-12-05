@@ -21,8 +21,7 @@ provisioner:
   playbooks:
     # TODO: Install curl in basedeps instead
     prepare: prepare.yml
-    # TODO: Can we use the shared playbook in resources?
-    converge: ../active-py3/playbook.yml
+    converge: ../resources/playbook-py3.yml
   inventory:
     host_vars:
       omero-web-active-py3-ubuntu1804:
@@ -35,7 +34,6 @@ scenario:
     - converge
 verifier:
   name: testinfra
-  # TODO: Use resources or a common folder
-  directory: ../active-py3/tests/
+  directory: ../resources/tests-py3/
   lint:
     name: flake8

@@ -8,7 +8,7 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: omero-web-active-py3
+  - name: omero-web-active-py3-centos7
     image: centos/systemd
     command: /sbin/init
     privileged: true
@@ -17,19 +17,19 @@ provisioner:
   lint:
     name: ansible-lint
   playbooks:
-    # TODO: Can we use the shared playbook in resources?
-    converge: playbook.yml
+    converge: ../resources/playbook-py3.yml
   inventory:
     host_vars:
-      omero-web-active-py3:
+      omero-web-active-py3-centos:
   options:
     v: true
     diff: true
 scenario:
-  name: active-py3
+  name: active-py3-centos7
   converge_sequence:
     - converge
 verifier:
   name: testinfra
+  directory: ../resources/tests-py3/
   lint:
     name: flake8

@@ -14,7 +14,7 @@ script:
 env:
   - SCENARIO=active
   - SCENARIO=inactive
-  - SCENARIO=active-py3
+  - SCENARIO=active-py3-centos7
   - SCENARIO=active-py3-ubuntu1804
 
 notifications:
