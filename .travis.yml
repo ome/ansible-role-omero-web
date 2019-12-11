@@ -16,6 +16,7 @@ env:
   - SCENARIO=inactive
   - SCENARIO=active-py3-centos7
   - SCENARIO=active-py3-ubuntu1804
+  - SCENARIO=py2-py3-upgrade-centos7
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/
