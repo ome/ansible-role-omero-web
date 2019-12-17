@@ -86,7 +86,7 @@
         not (_omero_web_new_version | regex_search('^[0-9]'))
       ) or (
         omero_web_symlink_st.stat.exists and
-        (omero_web_version.stdout is version_compare(
+        (omero_web_version.stdout is version(
            _omero_web_new_version,
            omero_web_checkupgrade_comparator)
         )
