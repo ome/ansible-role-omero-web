@@ -4,5 +4,7 @@
 - src: ome.basedeps
 - src: ome.omero_python_deps
 - src: ome.ice
-- src: ome.nginx
+- name: ome.nginx
+  src: >-
+    https://github.com/manics/ansible-role-nginx/archive/codename.tar.gz
 - src: ome.selinux_utils
