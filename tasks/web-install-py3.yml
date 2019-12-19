@@ -78,16 +78,11 @@
     - /etc/grid
     - /var
 
-- name: omero web | configuration script
+- name: omero web | remove old configuration script
   become: true
-  template:
-    dest: "{{ omero_web_basedir }}/config/omero-web-config-update.sh"
-    force: true
-    src: omero-web-config-update-sh.j2
-    mode: 0555
-  notify:
-    - omero-web rewrite omero-web configuration
-    - omero-web restart omero-web
+  file:
+    path: "{{ omero_web_basedir }}/config/omero-web-config-update.sh"
+    state: absent
 
 - name: omero web | configuration 00-omero-web.omero
   become: true

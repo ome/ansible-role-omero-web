@@ -7,7 +7,7 @@
 - name: omero-web rewrite omero-web configuration
   become: true
   become_user: "{{ omero_web_system_user }}"
-  command: "{{ omero_web_basedir }}/config/omero-web-config-update.sh"
+  command: "{{ omero_web_config_update }}"
 
 - name: omero-web restart omero-web
   become: true

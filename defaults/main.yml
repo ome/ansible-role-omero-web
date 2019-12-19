@@ -108,6 +108,16 @@ omero_web_omero_command: >-
     )
   }}
 
+# Config update command
+omero_web_config_update: >-
+  {{
+    omero_web_python3 | ternary(
+      omero_web_omero_command + ' load --glob ' + omero_web_basedir +
+      '/config/*.omero',
+      omero_web_basedir + '/config/omero-web-config-update.sh'
+    )
+  }}
+
 # DEVELOPMENT: If True clear the existing configuration before regenerating
 omero_web_always_reset_config: true
 
