@@ -19,6 +19,7 @@
         omero.web.server_list:
           - [localhost, 12345, molecule-test]
       omero_web_release: "5.3"
+      omero_web_python3: false
       when: not molecule_test_omero_web_installed_1.stat.exists
 
   tasks:
@@ -50,6 +51,7 @@
       omero_web_config_set:
         omero.web.server_list:
           - [localhost, 12345, molecule-test]
+      omero_web_python3: false
 
   vars:
     ice_python_wheel: "https://github.com/ome/zeroc-ice-py-centos7/releases/\

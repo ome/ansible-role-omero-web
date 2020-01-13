@@ -7,7 +7,9 @@ OMERO Web
 Installs and configures OMERO.web and Nginx.
 Uses a conf.d style configuration directory for managing the OMERO.web configuration.
 
-This role supports installation of OMERO.web 5.3+, and upgrades of existing OMERO.web 5.2 installations to 5.3+.
+**Warning:** This defaults to Python 3.
+Upgrades from OMERO.server 5.5 Python 2.7 to OMERO.server 5.6+ Python 3.6 are handled.
+See [`CHANGES.md`](./CHANGES.md) for details.
 
 
 Role Variables
@@ -19,7 +21,7 @@ OMERO.web version and installation.
 - `omero_web_release`: The OMERO.web release, e.g. `5.4.2`.
   The default is `present` which will install the latest version if web is not already installed, but will not modify an existing web.
   Use `latest` to automatically upgrade when a new version is released.
-- `omero_web_ice_version`: The ice version.
+- `omero_web_python3`: Use Python 3, default `true`
 - `omero_web_system_user`: OMERO.web system user, default `omero-web`.
 - `omero_web_system_uid`: OMERO.web system user ID (default automatic)
 
@@ -36,8 +38,6 @@ OMERO.web systemd configuration
 - `omero_web_systemd_requires`: A list of strings with additional service names to appear in systemd unit file "Requires" statements. Default empty/none.
 
 Python 3 only parameters.
-***This is for development and testing purposes only. Do not use on a production server.***
-- `omero_web_python3`: Use Python 3, default `false`
 - `omero_web_python_addons`: List of additional Python packages to be installed into virtualenv
 
 The [omero-web-apps](https://galaxy.ansible.com/ome/omero_web_apps) role has been merged into this role for Python 3 deployments.
