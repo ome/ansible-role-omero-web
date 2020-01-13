@@ -3,9 +3,6 @@
 
 omero_web_release: present
 
-# Ice version
-omero_web_ice_version: "3.6"
-
 # OMERO.web system user
 omero_web_system_user: omero-web
 
@@ -32,7 +29,7 @@ omero_web_config_set: {}
 omero_web_setup_nginx: true
 
 # Python 3?
-omero_web_python3: false
+omero_web_python3: true
 
 # List of additional Python packages to be installed into virtualenv
 # (python 3 only)
@@ -68,6 +65,8 @@ omero_web_apps_config_name: omero-web-apps
 ######################################################################
 # Expert users only!
 ######################################################################
+
+omero_web_ice_version: "3.6"
 
 omero_web_python_requirements_ice_package:
   RedHat: "https://github.com/ome/zeroc-ice-py-centos7/releases/download/\

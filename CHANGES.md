@@ -1,12 +1,8 @@
-# Breaking changes when switching to Python 3
-***This is for development and testing purposes only. Do not use on a production server.***
+# Changes in Version 3
 
-When `omero_web_python3: true` the following breaking changes take place.
-
-This will be the default in the next major release of this role.
-Note this role should handle upgrades.
-
-## Changes
+## Summary of breaking changes
+- Default to installing and running under Python 3.6.
+  Set `omero_web_python3: false` to use Python 2.7.
 - `/opt/omero/web/OMERO.web/` is a directory not a symlink.
 - The virtualenv path is `/opt/omero/web/venv3` and does not include system-site-packages.
 - Home directory of `omero_web_system_user` is changed from `/opt/omero/web` to `/opt/omero/web/OMERO.web/var`.
@@ -14,7 +10,8 @@ Note this role should handle upgrades.
 - The [omero-web-apps](https://galaxy.ansible.com/ome/omero_web_apps) role has been merged into this role.
 - `omero_web_release` does not support `latest`, only `present` and full versions.
 
-There may be other breaking changes before release.
+## Removed variables
+- `omero_web_ice_version`: This is now an internal variable and must always be `3.6`.
 
 
 # Changes in Version 2
