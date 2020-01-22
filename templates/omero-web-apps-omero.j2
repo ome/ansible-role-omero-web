@@ -7,7 +7,11 @@ config append -- omero.web.apps {{ item | to_json | quote }}
 
 # add top links
 {% for item in omero_web_apps_top_links %}
-config append -- omero.web.ui.top_links {{ [item.label, item.link, (item.attrs | default({}))] | to_json | quote }}
+{%   if 'attrs' in item %}
+config append -- omero.web.ui.top_links {{ [item.label, item.link, item.attrs] | to_json | quote }}
+{%   else %}
+config append -- omero.web.ui.top_links {{ [item.label, item.link] | to_json | quote }}
+{%   endif %}
 {% endfor %}
 
 # ui metadata panes
