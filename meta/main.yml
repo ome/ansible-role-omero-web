@@ -25,4 +25,6 @@ dependencies:
     when: omero_web_setup_nginx
   - role: ome.omero_python_deps
     when: not omero_web_python3
+  - role: ome.python3_virtualenv
+    when: omero_web_python3
   - role: ome.selinux_utils

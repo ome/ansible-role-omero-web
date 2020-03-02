@@ -6,24 +6,6 @@
 # and parse using
 # https://stackoverflow.com/questions/54025894/how-to-sort-version-numbers-in-ansible
 
-# TODO: Move to a separate role?
-- name: omero web | install python3
-  become: true
-  yum:
-    name: python36
-    state: present
-  when: ansible_os_family == 'RedHat'
-
-- name: omero web | install python3
-  become: true
-  apt:
-    name:
-      - python3.6
-      - python3.6-distutils
-      - python3.6-venv
-    state: present
-  when: ansible_os_family == 'Debian'
-
 - name: omero web | is web symlink present
   become: true
   stat:
@@ -120,7 +102,7 @@
       }}
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
-    virtualenv_command: /usr/bin/python3 -mvenv
+    virtualenv_command: /usr/local/bin/ome-python3-virtualenv.sh
   notify:
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
