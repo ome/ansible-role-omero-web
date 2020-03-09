@@ -102,7 +102,7 @@
       }}
     state: present
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
-    virtualenv_command: /usr/local/bin/ome-python3-virtualenv.sh
+    virtualenv_command: /usr/local/bin/ome-python3-virtualenv
   notify:
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
