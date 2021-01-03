@@ -9,6 +9,10 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal    
   role_name: omero_web
   galaxy_tags: []
 
