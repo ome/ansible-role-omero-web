@@ -9,7 +9,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 
 
 OMERO = '/opt/omero/web/OMERO.web/bin/omero'
-VERSION_PATTERN = re.compile('(\d+)\.(\d+)\.(\d+)-ice36-')
+VERSION_PATTERN = re.compile(r'(\d+)\.(\d+)\.(\d+)-ice36-')
 
 
 def test_omero_web_config(host):

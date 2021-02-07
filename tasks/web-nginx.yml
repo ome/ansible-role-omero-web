@@ -61,6 +61,7 @@
       copy:
         content: "{{ _omero_web_config_nginx.stdout }}"
         dest: /etc/nginx/conf.d/omero-web.conf
+        mode: 0644
       notify: restart nginx
 
   when: omero_web_python3

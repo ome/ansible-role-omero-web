@@ -9,4 +9,4 @@
       become: true
       apt:
         name: curl
-      state: present
+        state: present
