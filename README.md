@@ -1,7 +1,7 @@
 OMERO Web
 =========
 
-[![Build Status](https://travis-ci.org/ome/ansible-role-omero-web.svg)](https://travis-ci.org/ome/ansible-role-omero-web)
+[![Actions Status](https://github.com/ome/ansible-role-omero-web/workflows/Molecule/badge.svg)](https://github.com/ome/ansible-role-omero-web/actions)
 [![Ansible Role](https://img.shields.io/ansible/role/41131.svg)](https://galaxy.ansible.com/ome/omero_web/)
 
 Installs and configures OMERO.web and Nginx.
