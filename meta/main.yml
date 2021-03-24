@@ -14,17 +14,7 @@ galaxy_info:
 
 dependencies:
   - role: ome.omero_common
-  - role: ome.omego
-    when: not omero_web_python3
-  - role: ome.basedeps
-    when: not omero_web_python3
-  - role: ome.ice
-    ice_version: "{{ omero_web_ice_version }}"
-    when: not omero_web_python3
   - role: ome.nginx
     when: omero_web_setup_nginx
-  - role: ome.omero_python_deps
-    when: not omero_web_python3
   - role: ome.python3_virtualenv
-    when: omero_web_python3
   - role: ome.selinux_utils

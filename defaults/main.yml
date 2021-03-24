@@ -28,16 +28,12 @@ omero_web_config_set: {}
 # Install and configure Nginx
 omero_web_setup_nginx: true
 
-# Python 3?
-omero_web_python3: true
-
 # List of additional Python packages to be installed into virtualenv
-# (python 3 only)
 omero_web_python_addons: []
 
 
 ######################################################################
-# defaults from the old omero-web-apps (Python 3 only)
+# defaults from the old omero-web-apps
 ######################################################################
 
 # The pip installable package
@@ -86,35 +82,19 @@ omero_web_python_requirements:
   - redis
 
 # Path to virtualenv
-omero_web_virtualenv_basedir: >-
-  {{
-    omero_web_python3 | ternary(
-      omero_web_basedir + '/venv3',
-      omero_web_basedir + '/venv'
-    )
-  }}
+omero_web_virtualenv_basedir: "{{ omero_web_basedir + '/venv3' }}"
 
 # OMERODIR
 omero_web_omerodir: "{{ omero_web_basedir }}/{{ omero_web_symlink }}"
 
 # How to run omero
-omero_web_omero_command: >-
-  {{
-    omero_web_python3 | ternary(
-      omero_web_omerodir + '/bin/omero',
-      omero_web_basedir + '/venv/bin/python ' + omero_web_omerodir +
-        '/bin/omero'
-    )
-  }}
+omero_web_omero_command: "{{ omero_web_omerodir + '/bin/omero' }}"
 
 # Config update command
 omero_web_config_update: >-
   {{
-    omero_web_python3 | ternary(
       omero_web_omero_command + ' load --glob ' + omero_web_basedir +
-      '/config/*.omero',
-      omero_web_basedir + '/config/omero-web-config-update.sh'
-    )
+      '/config/*.omero'
   }}
 
 # DEVELOPMENT: If True clear the existing configuration before regenerating

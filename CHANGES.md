@@ -1,3 +1,9 @@
+# Changes in Version 4
+
+## Summary of breaking changes
+
+- Python 2 support is now dropped
+
 # Changes in Version 3
 
 ## Summary of breaking changes

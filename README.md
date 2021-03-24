@@ -7,8 +7,7 @@ OMERO Web
 Installs and configures OMERO.web and Nginx.
 Uses a conf.d style configuration directory for managing the OMERO.web configuration.
 
-**Warning:** This defaults to Python 3.
-Upgrades from OMERO.server 5.5 Python 2.7 to OMERO.server 5.6+ Python 3.6 are handled.
+**Warning:** Python 2 support is dropped.
 See [`CHANGES.md`](./CHANGES.md) for details.
 
 
@@ -21,7 +20,6 @@ OMERO.web version and installation.
 - `omero_web_release`: The OMERO.web release, e.g. `5.4.2`.
   The default is `present` which will install the latest version if web is not already installed, but will not modify an existing web.
   Use `latest` to automatically upgrade when a new version is released.
-- `omero_web_python3`: Use Python 3, default `true`
 - `omero_web_system_user`: OMERO.web system user, default `omero-web`.
 - `omero_web_system_uid`: OMERO.web system user ID (default automatic)
 
