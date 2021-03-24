@@ -154,7 +154,16 @@
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
 
-- name: omero web | setup virtualenv
+- name: omero web | install setuptool_scm
+  become: true
+  pip:
+    name:
+      - setuptools_scm < 6.0.0
+    state: present
+    virtualenv: "{{ omero_web_virtualenv_basedir }}"
+    virtualenv_site_packages: true
+
+- name: omero web | install requirements
   become: true
   pip:
     requirements: >-
