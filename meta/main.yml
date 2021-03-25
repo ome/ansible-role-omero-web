@@ -12,7 +12,7 @@ galaxy_info:
     - name: Ubuntu
       versions:
         - bionic
-        - focal    
+        - focal
   role_name: omero_web
   galaxy_tags: []
 
