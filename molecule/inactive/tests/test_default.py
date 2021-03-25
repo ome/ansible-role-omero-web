@@ -1,1 +1,1 @@
-../../resources/tests-py3/test_default.py
+../../resources/tests/test_default.py
