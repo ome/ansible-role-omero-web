@@ -8,8 +8,8 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: omero-web-active-ubuntu1804
-    image: jrei/systemd-ubuntu:18.04
+  - name: omero-web-active-ubuntu2004
+    image: jrei/systemd-ubuntu:20.04
     command: /sbin/init
     privileged: true
     tmpfs:
@@ -24,12 +24,12 @@ provisioner:
     converge: ../resources/playbook.yml
   inventory:
     host_vars:
-      omero-web-active-ubuntu1804:
+      omero-web-active-ubuntu2004:
   options:
     v: true
     diff: true
 scenario:
-  name: active-ubuntu1804
+  name: active-ubuntu2004
   converge_sequence:
     - converge
 verifier:
