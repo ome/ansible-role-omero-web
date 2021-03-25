@@ -17,7 +17,7 @@ provisioner:
   lint:
     name: ansible-lint
   playbooks:
-    converge: ../resources/playbook-py2.yml
+    converge: ../resources/playbook.yml
   inventory:
     host_vars:
       omero-web-inactive:

@@ -8,28 +8,32 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: omero-web-active-py3-centos7
-    image: centos/systemd
+  - name: omero-web-active-ubuntu1804
+    image: leandelivery/docker-systemd:ubuntu-18.04
     command: /sbin/init
     privileged: true
+    tmpfs:
+      - /sys/fs/cgroup
 provisioner:
   name: ansible
   lint:
     name: ansible-lint
   playbooks:
-    converge: ../resources/playbook-py3.yml
+    # TODO: Install curl in basedeps instead
+    prepare: prepare.yml
+    converge: ../resources/playbook.yml
   inventory:
     host_vars:
-      omero-web-active-py3-centos:
+      omero-web-active-ubuntu1804:
   options:
     v: true
     diff: true
 scenario:
-  name: active-py3-centos7
+  name: active-ubuntu1804
   converge_sequence:
     - converge
 verifier:
   name: testinfra
-  directory: ../resources/tests-py3/
+  directory: ../resources/tests/
   lint:
     name: flake8
