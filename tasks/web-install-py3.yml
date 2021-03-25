@@ -32,6 +32,7 @@
   file:
     path: "{{ item }}"
     state: directory
+    mode: 0755
   with_items:
     - "{{ omero_web_basedir }}"
     - "{{ omero_web_basedir }}/config"
@@ -56,6 +57,7 @@
     path: "{{ omero_web_omerodir }}{{ item }}"
     state: directory
     owner: "{{ omero_web_system_user }}"
+    mode: 0755
   with_items:
     - /etc/grid
     - /var
@@ -72,6 +74,7 @@
     dest: "{{ omero_web_basedir }}/config/00-omero-web.omero"
     force: true
     src: 00-omero-web-omero.j2
+    mode: 0644
   notify:
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
@@ -83,6 +86,7 @@
       {{ omero_web_apps_config_name }}.omero"
     force: true
     src: omero-web-apps-omero.j2
+    mode: 0644
   notify:
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
@@ -126,5 +130,5 @@
     {{ omero_web_basedir }}/OMERO.web
   register: result
   check_mode: false
-  changed_when: 'result.stdout != ""'
+  changed_when: result.stdout | length > 0
   when: selinux_enabled

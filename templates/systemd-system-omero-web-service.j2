@@ -14,9 +14,6 @@ Type=forking
 PIDFile={{ omero_web_omerodir }}/var/django.pid
 Restart=no
 RestartSec=10
-{% if not omero_web_python3 %}
-Environment="PATH={{ omero_web_virtualenv_basedir }}/bin:/bin:/usr/bin"
-{% endif %}
 ExecStartPre={{ omero_web_config_update }}
 ExecStart={{ omero_web_omero_command }} web start
 ExecStop={{ omero_web_omero_command }} web stop

@@ -91,7 +91,6 @@ def test_omero_web_ui_toplinks(host):
     assert_jcfg(host, 'omero.web.ui.top_links', expected, True)
 
 
-@pytest.mark.xfail(reason='OMERO.mapr broken on Python 3')
 def test_mapr_config(host):
     config = {
         'gene': {
