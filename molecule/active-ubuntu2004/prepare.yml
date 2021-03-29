@@ -1,0 +1,12 @@
+---
+# Curl isn't installed, needed for tests
+
+- name: Prepare
+  hosts: all
+
+  tasks:
+    - name: install curl
+      become: true
+      apt:
+        name: curl
+        state: present
