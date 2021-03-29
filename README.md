@@ -17,7 +17,7 @@ Role Variables
 All variables are optional, see `defaults/main.yml` for the full list
 
 OMERO.web version and installation.
-- `omero_web_release`: The OMERO.web release, e.g. `5.4.2`.
+- `omero_web_release`: The OMERO.web release, e.g. `5.9.1`.
   The default is `present` which will install the latest version if web is not already installed, but will not modify an existing web.
   Use `latest` to automatically upgrade when a new version is released.
 - `omero_web_system_user`: OMERO.web system user, default `omero-web`.

@@ -2,7 +2,13 @@
 
 ## Summary of breaking changes
 
-- Python 2 support is now dropped
+-   Python 2 support is now dropped
+-   `omero_web_python_requirements_ice_package` is now a nested dictionary to
+    support multiple versions per distribution
+
+## Removed variables
+
+- `omero_web_python3`: the role only installs OMERO.web with Python 3
 
 # Changes in Version 3
 
