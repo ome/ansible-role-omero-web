@@ -91,11 +91,20 @@
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
 
+
+- name: omero web | setup virtualenv3
+  become: true
+  pip:
+    name: "pip>=21"
+    state: present
+    virtualenv: "{{ omero_web_virtualenv_basedir }}"
+    virtualenv_command: /usr/local/bin/ome-python3-virtualenv
+
 # TODO: figure out dependencies, use omero-web version
 # Install/upgrade OMERO.web after the configuration files are updated
 # This should mean that if OMERO.web fails to start due to a configuration
 # error it will be updated before a restart
-- name: omero web | setup omero web virtualenv3
+- name: omero web | install requirements
   become: true
   pip:
     name: >-
