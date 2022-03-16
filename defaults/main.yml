@@ -31,6 +31,8 @@ omero_web_setup_nginx: true
 # List of additional Python packages to be installed into virtualenv
 omero_web_python_addons: []
 
+# List of Python packages to delete from the virtual environment
+omero_web_python_delete: []
 
 ######################################################################
 # defaults from the old omero-web-apps

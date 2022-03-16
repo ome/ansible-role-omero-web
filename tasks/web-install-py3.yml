@@ -120,6 +120,17 @@
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
 
+- name: omero web | remove requirements
+  become: true
+  pip:
+    name: "{{ omero_web_python_delete }}"
+    state: absent
+    virtualenv: "{{ omero_web_virtualenv_basedir }}"
+    virtualenv_command: /usr/local/bin/ome-python3-virtualenv
+  notify:
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
+
 # Remembering to set OMERODIR everywhere is prone to error
 - name: omero web | create omero web wrapper
   become: true
