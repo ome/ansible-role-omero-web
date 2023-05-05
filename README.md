@@ -21,6 +21,7 @@ OMERO.web version and installation.
   The default is `present` which will install the latest version if web is not already installed, but will not modify an existing web.
   Use `latest` to automatically upgrade when a new version is released.
 - `omero_web_system_user`: OMERO.web system user, default `omero-web`.
+- `omero_web_system_user_manage`: Create or update the OMERO.web system user if necessary, default `True`.
 - `omero_web_system_uid`: OMERO.web system user ID (default automatic)
 
 OMERO.web configuration.
