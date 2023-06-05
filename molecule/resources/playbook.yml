@@ -45,7 +45,7 @@
 - name: Converge upgrade
   hosts: all
   roles:
-    - role: ome.omero-web
+    - role: ome.omero_web
       omero_web_config_set:
         omero.web.server_list:
           - [localhost, 12345, molecule-test]
