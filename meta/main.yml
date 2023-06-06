@@ -13,7 +13,7 @@ galaxy_info:
       versions:
         - bionic
         - focal
-  role_name: omero_web
+  role_name: ome.omero_web
   galaxy_tags: []
 
 dependencies:
