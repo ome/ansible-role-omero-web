@@ -18,6 +18,9 @@ platforms:
       - /sys/fs/cgroup
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      remote_tmp: /tmp
   lint:
     name: ansible-lint
   playbooks:
