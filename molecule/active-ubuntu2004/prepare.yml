@@ -10,3 +10,11 @@
       apt:
         name: curl
         state: present
+    - name: Install acl
+      become: true
+      apt:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - acl
+        - python3-pip
