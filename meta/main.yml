@@ -17,9 +17,9 @@ galaxy_info:
   namespace: ome
   galaxy_tags: []
 
-dependencies:
-  - role: ome.omero_common
-  - role: ome.nginx
-    when: omero_web_setup_nginx
-  - role: ome.python3_virtualenv
-  - role: ome.selinux_utils
+  dependencies:
+    - role: ome.omero_common
+    - role: ome.nginx
+      when: omero_web_setup_nginx
+    - role: ome.python3_virtualenv
+    - role: ome.selinux_utils
