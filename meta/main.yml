@@ -13,11 +13,13 @@ galaxy_info:
       versions:
         - bionic
         - focal
-  role_name: ome.omero_web
+  role_name: omero_web
+  namespace: ome
   galaxy_tags: []
 
 dependencies:
-  - role: ome.omero_common
+  - role_name: omero_common
+    namespace: ome
   - role: ome.nginx
     when: omero_web_setup_nginx
   - role: ome.python3_virtualenv
