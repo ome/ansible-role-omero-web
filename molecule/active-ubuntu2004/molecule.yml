@@ -21,6 +21,7 @@ provisioner:
   config_options:
     defaults:
       remote_tmp: /tmp
+      allow_world_readable_tmpfiles: true
   lint:
     name: ansible-lint
   playbooks:
