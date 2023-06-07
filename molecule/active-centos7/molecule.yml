@@ -12,6 +12,7 @@ lint: |
 platforms:
   - name: omero-web-active-centos7
     image: centos/systemd
+    image_version: latest
     command: /sbin/init
     privileged: true
 provisioner:
