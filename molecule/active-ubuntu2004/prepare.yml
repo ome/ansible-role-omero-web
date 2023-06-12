@@ -5,12 +5,12 @@
   hosts: all
 
   tasks:
-    - name: install curl
-      become: true
-      apt:
-        name: curl
-        state: present
-    - name: Install acl
+    # - name: install curl
+    #   become: true
+    #   apt:
+    #     name: curl
+    #     state: present
+    - name: Install pckgs
       become: true
       apt:
         name: "{{ item }}"
@@ -18,3 +18,4 @@
       with_items:
         - acl
         - python3-pip
+        - curl
