@@ -5,15 +5,8 @@
   hosts: all
 
   tasks:
-    # - name: install curl
-    #   become: true
-    #   apt:
-    #     name: curl
-    #     state: present
-    - name: Install pckgs
+    - name: install curl
       become: true
       apt:
         name: curl
-        state: latest
-        update_cache: yes
-        upgrade: yes
+        state: present
