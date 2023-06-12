@@ -12,9 +12,7 @@
     #     state: present
     - name: Install pckgs
       become: true
-      apt:
-        name: "{{ item }}"
-        state: present
+      action: apt pkg={{ item }} state=present
       with_items:
         - acl
         - python3-pip
