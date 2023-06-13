@@ -5,13 +5,14 @@
   hosts: all
 
   tasks:
-    - name: install curl
+    - name: Install packages
       become: true
       apt:
-        name: curl
-        state: present
-    - name: install gnupg
-      become: true
-      apt:
-        name: gnupg
+        name:
+          - curl
+          - gnupg
+          - ca-certificates
+          - python
+          - sudo
+          - bash
         state: present
