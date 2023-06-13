@@ -10,3 +10,8 @@
       apt:
         name: curl
         state: present
+    - name: install gnupg
+      become: true
+      apt:
+        name: gnupg
+        state: present
