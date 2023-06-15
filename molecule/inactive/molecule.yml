@@ -5,8 +5,10 @@ dependency:
     role-file: molecule/resources/requirements.yml
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+    yamllint .
+    ansible-lint
+    flake8
 platforms:
   - name: omero-web-inactive
     image: centos/systemd
@@ -32,5 +34,3 @@ scenario:
   name: inactive
 verifier:
   name: testinfra
-  lint:
-    name: flake8
