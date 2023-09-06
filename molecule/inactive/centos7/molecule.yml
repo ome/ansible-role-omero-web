@@ -1,0 +1,36 @@
+---
+dependency:
+  name: galaxy
+  options:
+    role-file: molecule/resources/requirements.yml
+driver:
+  name: docker
+lint: |
+    yamllint .
+    ansible-lint
+    flake8
+platforms:
+  - name: omero-web-active-centos7
+    image: centos/systemd
+    image_version: latest
+    command: /sbin/init
+    privileged: true
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+  playbooks:
+    converge: ../resources/playbook.yml
+  inventory:
+    host_vars:
+      omero-web-active-centos:
+  options:
+    v: true
+    diff: true
+scenario:
+  name: active-centos7
+  converge_sequence:
+    - converge
+verifier:
+  name: testinfra
+  directory: ../resources/tests/

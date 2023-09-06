@@ -18,6 +18,7 @@ galaxy_info:
   galaxy_tags: []
 
 dependencies:
+  - role: ome.basedeps
   - role: ome.omero_common
   - role: ome.nginx
     when: omero_web_setup_nginx

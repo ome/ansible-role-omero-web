@@ -1,4 +1,5 @@
 ---
+- src: ome.basedeps
 - src: ome.omero_common
 - src: ome.nginx
 - src: ome.python3_virtualenv
