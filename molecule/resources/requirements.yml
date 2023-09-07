@@ -1,6 +1,13 @@
 ---
-- src: ome.basedeps
-- src: ome.omero_common
+# - src: https://github.com/glyg/ansible-role-basedeps
+#   name: ome.basedeps
+# - src: https://github.com/glyg/ansible-role-omero-common
+#   name: ome.omero_common
 - src: ome.nginx
 - src: ome.python3_virtualenv
 - src: ome.selinux_utils
+
+
+ # - src: https://github.com/juju4/ansible-redhat-epel/
+ #    version: main
+ #    name: juju4.redhat_epel
