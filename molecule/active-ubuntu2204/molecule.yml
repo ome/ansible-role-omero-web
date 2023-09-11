@@ -11,8 +11,8 @@ lint: |
     ansible-lint
     flake8
 platforms:
-  - name: omero-web-active-ubuntu2204
-    image: ubuntu:22.04
+  - name: ubuntu-systemd-22.04
+    image: eniocarboni/docker-ubuntu-systemd:22.04
 provisioner:
   name: ansible
   lint:

@@ -10,11 +10,9 @@ lint: |
     ansible-lint
     flake8
 platforms:
-  - name: omero-web-active-centos7
-    image: centos/systemd
-    image_version: latest
-    command: /sbin/init
-    privileged: true
+  - name: rockylinux-systemd-9
+    image: eniocarboni/docker-rockylinux-systemd
+    image_version: 9
 provisioner:
   name: ansible
   lint:
@@ -28,7 +26,7 @@ provisioner:
     v: true
     diff: true
 scenario:
-  name: active-centos7
+  name: active-rockylinux9
   converge_sequence:
     - converge
 verifier:
