@@ -6,7 +6,7 @@
 
 - name: nginx
   src: https://github.com/khaledk2/ansible-role-nginx
-  version: rocky_3
+  version: update_to_use_rockylinu9
 
 - name: python3_virtualenv
   src: https://github.com/pwalczysko/ansible-role-python3-virtualenv/
