@@ -28,7 +28,7 @@ provisioner:
     converge: ../resources/playbook.yml
   inventory:
     host_vars:
-      omero-web-active-centos:
+      omero-web-active-rockylinux9:
   options:
     v: true
     diff: true
