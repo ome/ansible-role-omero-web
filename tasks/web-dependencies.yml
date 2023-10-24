@@ -1,6 +1,5 @@
 ---
 # selinux
-
 - name: omero web | selinux booleans
   become: true
   seboolean:
@@ -21,3 +20,48 @@
     setype: http_port_t
     state: present
   when: selinux_enabled
+
+- name : omero web  | register pp file
+  stat:
+    path:  /tmp/django.pp
+  register: pp_file_name
+
+- name: omero web | copy te file
+  become: true
+  template:
+    dest: /tmp/django.te
+    force: true
+    src: django.te.j2
+    mode: 0644
+
+
+- name: omero web | install checkpolicy
+  become: true
+  ansible.builtin.dnf:
+    update_cache: true
+    name:
+      - checkpolicy
+      - policycoreutils
+    state: present
+  when: ansible_os_family | lower == 'redhat'
+
+- name: omero web | Compile into a policy module
+  command: "checkmodule -M -m -o /tmp/django.mod /tmp/django.te"
+  args:
+    creates: /tmp/django.mod
+  when: ansible_os_family | lower == 'redhat'
+
+- name: omero web | Package the policy module
+  command: "semodule_package -o /tmp/django.pp -m /tmp/django.mod"
+  args:
+    creates: /tmp/mypolicy.pp
+  when: ansible_os_family | lower == 'redhat' and not pp_file_name.stat.exists
+
+
+- name: omero web | Load the policy module
+  command: "semodule -i /tmp/django.pp"
+  notify:
+    - Reload SELinux
+  args:
+    creates: /tmp/django.pp
+  when: ansible_os_family | lower == 'redhat'
