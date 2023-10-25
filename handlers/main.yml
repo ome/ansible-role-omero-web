@@ -18,4 +18,5 @@
 
 - name: omero-web Reload SELinux
   become: true
+  ignore_errors: true
   command: load_policy
