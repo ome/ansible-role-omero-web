@@ -16,6 +16,6 @@
     state: restarted
   when: omero_web_systemd_setup and omero_web_systemd_start
 
--name: omero-web Reload SELinux
- become: true
- command: load_policy
+- name: omero-web Reload SELinux
+  become: true
+  command: load_policy
