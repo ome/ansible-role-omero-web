@@ -46,12 +46,24 @@
     state: present
   when: ansible_os_family | lower == 'redhat'
 
+- name: omero web | install checkpolicy for ubuntu
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    name:
+      - checkpolicy
+      - policycoreutils
+      - semodule-utils
+      - selinux-basics
+    state: present
+  when: ansible_os_family | lower != 'redhat'
+
 - name: omero web | Compile into a policy module
   become: true
   command: "checkmodule -M -m -o /tmp/django.mod /tmp/django.te"
   args:
     creates: /tmp/django.mod
-  when: ansible_os_family | lower == 'redhat' and not pp_file_name.stat.exists
+  when: not pp_file_name.stat.exists
 
 - name : omero web  | register mod file
   stat:
@@ -64,14 +76,14 @@
   args:
      creates: /tmp/mypolicy.pp
 
-  when: ansible_os_family | lower == 'redhat' and not pp_file_name.stat.exists
+  when:  not pp_file_name.stat.exists
 
 - name: omero web | Load the policy module
   become: true
   command: "semodule -i /tmp/django.pp"
   notify:
     - omero-web Reload SELinux
-  when: ansible_os_family | lower == 'redhat' and mod_file_name.stat.exists
+  when: mod_file_name.stat.exists
 
 - name: omero web | delete mod file
   ansible.builtin.file:

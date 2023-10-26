@@ -100,6 +100,17 @@
     virtualenv: "{{ omero_web_virtualenv_basedir }}"
     virtualenv_command: /usr/local/bin/ome-python3-virtualenv
 
+- name: omero web | install tzdata
+  become: true
+  pip:
+    name: tzdata
+    state: present
+    virtualenv: "{{ omero_web_virtualenv_basedir }}"
+    virtualenv_command: /usr/local/bin/ome-python3-virtualenv
+  notify:
+    - omero-web rewrite omero-web configuration
+    - omero-web restart omero-web
+
 # TODO: figure out dependencies, use omero-web version
 # Install/upgrade OMERO.web after the configuration files are updated
 # This should mean that if OMERO.web fails to start due to a configuration
