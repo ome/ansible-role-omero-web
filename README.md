@@ -2,7 +2,7 @@ OMERO Web
 =========
 
 [![Actions Status](https://github.com/ome/ansible-role-omero-web/workflows/Molecule/badge.svg)](https://github.com/ome/ansible-role-omero-web/actions)
-[![Ansible Role](https://img.shields.io/badge/ansible--galaxy-omero_web-blue.svg))](https://galaxy.ansible.com/ui/standalone/roles/ome/omero_web/)
+[![Ansible Role](https://img.shields.io/badge/ansible--galaxy-omero_web-blue.svg)](https://galaxy.ansible.com/ui/standalone/roles/ome/omero_web/)
 
 Installs and configures OMERO.web and Nginx.
 Uses a conf.d style configuration directory for managing the OMERO.web configuration.
