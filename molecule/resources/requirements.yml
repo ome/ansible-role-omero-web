@@ -1,29 +1,8 @@
 ---
-# - src: ome.omero_common
-# - src: ome.nginx
-# - src: ome.python3_virtualenv
-# - src: ome.selinux_utils
 
-- name: nginx
-  src: https://github.com/khaledk2/ansible-role-nginx
-  version: update_to_use_rockylinu9
-
-- name: python3_virtualenv
-  src: https://github.com/pwalczysko/ansible-role-python3-virtualenv/
-  version: rocky9
-
-- name: selinux_utils
-  src: https://github.com/pwalczysko/ansible-role-selinux-utils/
-  version: rocky9
-
-- name: omero_common
-  src: https://github.com/glyg/ansible-role-omero-common
-  version: glyg
-
-- name: redis
-  src: https://github.com/pwalczysko/ansible-role-redis
-  version: rocky9
-
-- name: basedeps
-  src: https://github.com/glyg/ansible-role-basedeps
-  version: glyg
+- src: ome.nginx
+- src: ome.python3_virtualenv
+- src: ome.selinux_utils
+- src: ome.omero_common
+- src: ome.redis
+- src: ome.basedeps
