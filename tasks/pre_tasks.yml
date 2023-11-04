@@ -1,10 +1,7 @@
 ---
 
-- block:
-    - ansible.builtin.import_role:
-        name: ome.omero_common
-  vars:
-       temp_var: "{{ omero_common_basedir }}"
+- ansible.builtin.import_role:
+    name: ome.omero_common
 
 - name: omero-web | Include ome.selinux_utils
   ansible.builtin.include_role:
