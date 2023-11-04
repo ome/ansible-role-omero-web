@@ -1,5 +1,7 @@
 ---
 # tasks for omero-web
+-
+- include: pre_tasks.yml
 
 - include: web-dependencies.yml
 
