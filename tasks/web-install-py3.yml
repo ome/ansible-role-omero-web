@@ -8,7 +8,7 @@
 
 - name: omero web | display omero_common_basedir value
   debug:
-     msg: "default: {{ omero_common_basedir }}"
+    msg: "default: {{ omero_common_basedir }}"
 
 - name: omero web | is web symlink present
   become: true
@@ -94,7 +94,6 @@
   notify:
     - omero-web rewrite omero-web configuration
     - omero-web restart omero-web
-
 
 - name: omero web | setup virtualenv3
   become: true
