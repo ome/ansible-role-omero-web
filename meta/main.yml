@@ -4,22 +4,14 @@ galaxy_info:
   description: Install and configure OMERO.web
   company: Open Microscopy Environment
   license: BSD
-  min_ansible_version: 2.6
+  min_ansible_version: 2.10
   platforms:
     - name: EL
       versions:
-        - 7
+        - 9
     - name: Ubuntu
       versions:
-        - bionic
-        - focal
+        - jammy
   role_name: omero_web
   namespace: ome
   galaxy_tags: []
-
-dependencies:
-  - role: ome.omero_common
-  - role: ome.nginx
-    when: omero_web_setup_nginx
-  - role: ome.python3_virtualenv
-  - role: ome.selinux_utils

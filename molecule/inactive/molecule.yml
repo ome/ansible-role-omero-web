@@ -11,9 +11,14 @@ lint: |
     flake8
 platforms:
   - name: omero-web-inactive
-    image: centos/systemd
+    image: eniocarboni/docker-rockylinux-systemd:9
     command: /sbin/init
     privileged: true
+    cgroupns_mode: host
+    tmpfs:
+      - /sys/fs/cgroup
+    groups:
+      - extra_options
 provisioner:
   name: ansible
   lint:
