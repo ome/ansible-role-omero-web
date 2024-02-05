@@ -99,6 +99,18 @@ OMERO.web with a custom configuration using `omero_web_config_set`:
             omero.web.public.user: public
             omero.web.public.password: secret-password
 
+OMERO.web with the redis session engine    
+   
+    hosts: localhost    
+    roles:
+    - role: ome.omero_web
+      omero_web_config_set:
+        "omero.web.caches":
+           "default": 
+              "BACKEND": "django_redis.cache.RedisCache"
+              "LOCATION": "redis://127.0.0.1:6379/0"
+        "omero.web.session_engine": "django.contrib.sessions.backends.cache"
+
 OMERO.web with a custom configuration using a configuration file `web-custom-config.omero`:
 
     - hosts: localhost
