@@ -104,6 +104,7 @@ OMERO.web with the redis session engine
     hosts: localhost    
     roles:
     - role: ome.omero_web
+      omero_web_setup_redis_session: true
       omero_web_config_set:
         "omero.web.caches":
            "default": 
