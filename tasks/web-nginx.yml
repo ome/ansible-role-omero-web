@@ -42,4 +42,7 @@
     name: nginx
     state: started
 
-# SELinux should be handled by openmicroscopy.omero-web-runtime
+- name: omero web | allow nginx to connect to omero-web
+  become: true
+  command: setsebool -P httpd_can_network_connect on
+
