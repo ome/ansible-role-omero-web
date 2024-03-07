@@ -54,6 +54,7 @@
     state: present
     system: true
     uid: "{{ omero_web_system_uid | default(omit) }}"
+  when: omero_web_system_user_manage
 
 - name: omero web | create OMERODIR writeable
   become: true

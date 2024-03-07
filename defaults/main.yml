@@ -5,6 +5,7 @@ omero_web_release: present
 
 # OMERO.web system user
 omero_web_system_user: omero-web
+omero_web_system_user_manage: true
 
 # OMERO.web system user ID (If not defined one is chosen automatically)
 # omero_web_system_uid:
