@@ -86,6 +86,7 @@
   when: mod_file_name.stat.exists
 
 - name: omero web | delete mod file
+  become: true
   ansible.builtin.file:
     path: /tmp/django.mod
     state: absent
