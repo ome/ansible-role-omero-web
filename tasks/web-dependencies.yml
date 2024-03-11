@@ -19,7 +19,7 @@
     proto: tcp
     setype: http_port_t
     state: present
-  when: selinux_enabled
+  when: ansible_facts.selinux.status == 'enabled'
 
 - name: omero web  | register pp file
   stat:

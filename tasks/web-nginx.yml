@@ -41,8 +41,3 @@
     enabled: true
     name: nginx
     state: started
-
-- name: omero web | allow nginx to connect to omero-web
-  become: true
-  command: setsebool -P httpd_can_network_connect on
-
