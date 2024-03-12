@@ -19,7 +19,7 @@
     proto: tcp
     setype: http_port_t
     state: present
-  when: selinux_enabled
+  when: ansible_facts.selinux.status == 'enabled'
 
 - name: omero web  | register pp file
   stat:
@@ -86,6 +86,7 @@
   when: mod_file_name.stat.exists
 
 - name: omero web | delete mod file
+  become: true
   ansible.builtin.file:
     path: /tmp/django.mod
     state: absent
