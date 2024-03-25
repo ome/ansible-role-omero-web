@@ -9,6 +9,7 @@
   with_items:
     - httpd_read_user_content
     - httpd_enable_homedirs
+    - httpd_can_network_relay
   when: selinux_enabled
 
 # Alternatively set httpd_can_network_connect=yes to allow all ports
