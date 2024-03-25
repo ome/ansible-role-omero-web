@@ -41,5 +41,3 @@
     enabled: true
     name: nginx
     state: started
-
-# SELinux should be handled by openmicroscopy.omero-web-runtime
