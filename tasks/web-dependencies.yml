@@ -38,7 +38,6 @@
 - name: omero web | install checkpolicy
   become: true
   ansible.builtin.dnf:
-    update_cache: true
     name:
       - checkpolicy
       - policycoreutils
@@ -50,7 +49,6 @@
 - name: omero web | install checkpolicy for ubuntu
   become: true
   ansible.builtin.apt:
-    update_cache: true
     name:
       - checkpolicy
       - policycoreutils
