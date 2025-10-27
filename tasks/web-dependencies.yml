@@ -49,6 +49,8 @@
 - name: omero web | install checkpolicy for ubuntu
   become: true
   ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 86400
     name:
       - checkpolicy
       - policycoreutils
