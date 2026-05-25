@@ -7,6 +7,9 @@ After=network.service
 {% endfor %}
 {% for value in omero_web_systemd_requires %}Requires={{ value }}
 {% endfor %}
+{% for name in (omero_additional_web_systemd_unit_vars | sort) %}
+{{ name }}={{ omero_additional_web_systemd_unit_vars[name] | quote }}
+{% endfor %}
 
 [Service]
 User={{ omero_web_system_user }}
@@ -20,8 +23,8 @@ ExecStop={{ omero_web_omero_command }} web stop
 {% if omero_web_systemd_limit_nofile %}
 LimitNOFILE={{ omero_web_systemd_limit_nofile }}
 {% endif %}
-{% for name in (omero_additional_web_systemd_vars | sort) %}
-{{ name }}={{ omero_additional_web_systemd_vars[name] | quote }}
+{% for name in (omero_additional_web_systemd_service_vars | sort) %}
+{{ name }}={{ omero_additional_web_systemd_service_vars[name] | quote }}
 {% endfor %}
 
 [Install]
