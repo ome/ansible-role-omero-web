@@ -12,7 +12,7 @@ lint: |
 platforms:
   - name: omero-web-active-rockylinux9
     image: eniocarboni/docker-rockylinux-systemd:9
-    image_version: latest
+    # image_version: latest
     command: /sbin/init
     privileged: true
     cgroupns_mode: host
